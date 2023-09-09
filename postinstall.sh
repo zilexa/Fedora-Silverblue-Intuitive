@@ -1,3 +1,5 @@
+#!/bin/bash
+#
 # Remove unused apps
 sudo zypper remove nautilus evolution gnome-text-editor
 
