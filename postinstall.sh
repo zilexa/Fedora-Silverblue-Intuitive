@@ -3,28 +3,33 @@ sudo zypper remove nautilus evolution gnome-text-editor
 
 # Install apps
 # Hardware support: rotation sensor
-sudo zypper install iio-sensor-proxy
+sudo zypper install -y iio-sensor-proxy
 # Wireguard VPN support
-sudo zypper install wireguard-tools
+sudo zypper install -y wireguard-tools
 # Gnome screenshot without having to go through UI
-sudo zypper install gnome-screenshot
+sudo zypper install -y gnome-screenshot
 # Gnome Connections, to connect to other PCs/Laptops via RDP or VNC
-sudo zypper install gnome-connections
+sudo zypper install -y gnome-connections
 # Nemo filemanager and useful plugins (replacing gnome files, Nautilus)
-sudo zypper install nemo nemo-extension-audio-tab nemo-extension-compare nemo-extension-emblems nemo-extension-folder-color nemo-extension-image-converter nemo-extension-preview nemo-extension-repairer nemo-extension-seahorse nemo-extension-share nemo-font-manager
+sudo zypper install -y nemo nemo-extension-audio-tab nemo-extension-compare nemo-extension-emblems nemo-extension-folder-color nemo-extension-image-converter nemo-extension-preview nemo-extension-repairer nemo-extension-seahorse nemo-extension-share nemo-font-manager
 # Text Editor (replacing default gnome-text-editor)
-sudo zypper install pluma
+sudo zypper install -y pluma
 # Nextcloud Desktop Client
-sudo zypper install nextcloud-desktop
+sudo zypper install -y nextcloud-desktop
 # Bleachbit cleanup tool
-sudo zypper install bleachbit
+sudo zypper install -y bleachbit
 # Music editor tool
-sudo zypper install audacity
+sudo zypper install -y audacity
 # Image editor tool
-sudo zypper install pinta
+sudo zypper install -y pinta
 # Photo management tool
-sudo zypper install digikam
-
+sudo zypper install -y digikam
+# Video converter
+flatpak install -y app/fr.handbrake.ghb/x86_64/stable
+# Video trimmer
+flatpak install -y app/no.mifi.losslesscut/x86_64/stable
+# Video editor
+flatpak install -y app/org.shotcut.Shotcut/x86_64/stable’
 
 # Install Gnome Extensions to support a more friendly and intuitive GUI
 # Install script to easily install extensions system wide
@@ -186,7 +191,7 @@ echo "                                                                          
 echo "  Configure panel (taskbar), App menu (Arcmenu) and common dessktop, GUI settings  "
 echo "___________________________________________________________________________________"
 # Pin common apps to Arc Menu
-gsettings set org.gnome.shell.extensions.arcmenu pinned-app-list "['ONLYOFFICE Desktop Editors', '', 'org.onlyoffice.desktopeditors.desktop', 'LibreOffice Writer', '', 'libreoffice-writer.desktop', 'LibreOffice Calc', '', 'libreoffice-calc.desktop', 'LibreOffice Impress', '', 'libreoffice-impress.desktop', 'Document Scanner', '', 'simple-scan.desktop', 'Pinta Image Editor', '', 'pinta.desktop', 'digiKam', '', 'org.kde.digikam.desktop', 'GNU Image Manipulation Program', '', 'gimp.desktop', 'Strawberry', '', 'org.strawberrymusicplayer.strawberry.desktop', 'Audacity', '', 'audacity.desktop', 'LosslessCut', '', 'losslesscut-bin.desktop', 'Shotcut', '', 'org.shotcut.Shotcut.desktop', 'HandBrake', '', 'fr.handbrake.ghb.desktop', 'BleachBit', '', 'org.bleachbit.BleachBit.desktop', 'Tweaks', '', 'org.gnome.tweaks.desktop', 'Terminal', '', 'org.gnome.Terminal.desktop', 'Extension Manager', '', 'com.mattjakeman.ExtensionManager.desktop', 'Add/Remove Software', '', 'org.manjaro.pamac.manager.desktop']"
+gsettings set org.gnome.shell.extensions.arcmenu pinned-app-list "['ONLYOFFICE Desktop Editors', '', 'org.onlyoffice.desktopeditors.desktop', 'LibreOffice Writer', '', 'libreoffice-writer.desktop', 'LibreOffice Calc', '', 'libreoffice-calc.desktop', 'LibreOffice Impress', '', 'libreoffice-impress.desktop', 'Document Scanner', '', 'simple-scan.desktop', 'Pinta Image Editor', '', 'pinta.desktop', 'digiKam', '', 'org.kde.digikam.desktop', 'GNU Image Manipulation Program', '', 'gimp.desktop', '', 'Audacity', '', 'audacity.desktop', 'LosslessCut', '', 'losslesscut-bin.desktop', 'Shotcut', '', 'org.shotcut.Shotcut.desktop', 'HandBrake', '', 'fr.handbrake.ghb.desktop', 'BleachBit', '', 'org.bleachbit.BleachBit.desktop', 'Tweaks', '', 'org.gnome.tweaks.desktop', 'Terminal', '', 'org.gnome.Terminal.desktop', 'Extension Manager', '', 'com.mattjakeman.ExtensionManager.desktop', 'Add/Remove Software', '', 'org.manjaro.pamac.manager.desktop']"
 # Add most used apps to Panel (favourites)
 gsettings set org.gnome.shell favorite-apps "['nemo.desktop', 'firefox.desktop', 'org.gnome.gThumb.desktop', 'pluma.desktop', 'org.gnome.Calculator.desktop']"
 # Arc Menu & Dash to Panel
