@@ -192,8 +192,7 @@ gsettings set org.gnome.shell favorite-apps "['nemo.desktop', 'firefox.desktop',
 # Arc Menu & Dash to Panel
 gsettings set org.gnome.shell.extensions.arcmenu arc-menu-placement 'DTP'
 gsettings set org.gnome.shell.extensions.arcmenu menu-layout 'Eleven'
-gsettings set org.gnome.shell disabled-extensions "['material-shell@papyelgringo', 'vertical-overview@RensAlthuis.github.com', 'dash-to-dock@micxgx.gmail.com', 'unite@hardpixel.eu', 'places-menu@gnome-shell-extensions.gcampax.github.com']"
-gsettings set org.gnome.shell enabled-extensions "['pamac-updates@manjaro.org', 'gnome-ui-tune@itstime.tech', 'x11gestures@joseexposito.github.io', 'ding@rastersoft.com', 'appindicatorsupport@rgcjonas.gmail.com', 'dash-to-panel@jderose9.github.com', 'arcmenu@arcmenu.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'custom-hot-corners-extended@G-dH.github.com', 'gestureImprovements@gestures', 'BingWallpaper@ineffable-gmail.com']"
+gsettings set org.gnome.shell enabled-extensions "['gnome-ui-tune@itstime.tech', 'ding@rastersoft.com', 'appindicatorsupport@rgcjonas.gmail.com', 'dash-to-panel@jderose9.github.com', 'arcmenu@arcmenu.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'custom-hot-corners-extended@G-dH.github.com', 'gestureImprovements@gestures', 'BingWallpaper@ineffable-gmail.com', 'allowlockedremotedesktop@kamens.us', 'improvedosk@nick-shmyrev.dev']"
 gsettings set org.gnome.shell.extensions.arcmenu available-placement "[false, true, false]"
 gsettings set org.gnome.shell.extensions.dash-to-panel panel-positions '{"0":"LEFT"}'
 gsettings set org.gnome.desktop.interface show-battery-percentage true
