@@ -16,7 +16,7 @@ sudo bash /home/asterix/gnome-shell-extension-installer.sh 4245
 # Dash to Panel for all users
 sudo bash /home/asterix/gnome-shell-extension-installer.sh 1160
 # Bing Wallpaper for all users
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 1160
+sudo bash /home/asterix/gnome-shell-extension-installer.sh 1262
 # Improved On Screen Keyboard
 sudo bash /home/asterix/gnome-shell-extension-installer.sh 4413
 # Allow Locked Remote Desktop
