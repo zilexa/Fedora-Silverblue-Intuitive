@@ -192,6 +192,8 @@ echo "__________________________________________________________________________
 echo "                                                                                   " 
 echo "  Configure panel (taskbar), App menu (Arcmenu) and common dessktop, GUI settings  "
 echo "___________________________________________________________________________________"
+# add minimise and maximise to window title bar
+gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
 # Pin common apps to Arc Menu
 gsettings set org.gnome.shell.extensions.arcmenu pinned-app-list "['ONLYOFFICE Desktop Editors', '', 'org.onlyoffice.desktopeditors.desktop', 'LibreOffice Writer', '', 'libreoffice-writer.desktop', 'LibreOffice Calc', '', 'libreoffice-calc.desktop', 'LibreOffice Impress', '', 'libreoffice-impress.desktop', 'Document Scanner', '', 'simple-scan.desktop', 'Pinta Image Editor', '', 'pinta.desktop', 'digiKam', '', 'org.kde.digikam.desktop', 'GNU Image Manipulation Program', '', 'gimp.desktop', '', 'Audacity', '', 'audacity.desktop', 'LosslessCut', '', 'losslesscut-bin.desktop', 'Shotcut', '', 'org.shotcut.Shotcut.desktop', 'HandBrake', '', 'fr.handbrake.ghb.desktop', 'BleachBit', '', 'org.bleachbit.BleachBit.desktop', 'Tweaks', '', 'org.gnome.tweaks.desktop', 'Terminal', '', 'org.gnome.Terminal.desktop', 'Extension Manager', '', 'com.mattjakeman.ExtensionManager.desktop', 'Add/Remove Software', '', 'org.manjaro.pamac.manager.desktop']"
 # Add most used apps to Panel (favourites)
