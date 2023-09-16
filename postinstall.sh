@@ -360,8 +360,22 @@ echo "Firefox: would you like to be able to launch different profiles (2), by si
 read -p "Only useful if multiple users use this machine and each user has its own Firefox profile. (y/n)?" answer
 case ${answer:0:1} in
     y|Y )
+    cp /usr/share/applications/firefox.desktop /home/asterix/.local/share/applications/
+    echo "Please enter the first Firefox profile (user) name:"
+    read -p 'firefox profile 1 name (e.g. Lisa): ' profile1
+    echo "Please enter the second Firefox profile (user) name:"
+    read -p 'firefox profile 2 name (e.g. John): ' profile2
     echo adding profiles to right-click of Firefox shortcut... 
-    wget --no-check-certificate -P $HOME/.local/share/applications https://raw.githubusercontent.com/zilexa/Ubuntu-Budgie-Post-Install-Script/master/firefox/firefox.desktop
+    sudo sed -i -e 's@Actions=new-window;new-incognito-window;@Actions=new-window;$profile1;$profile2;@g' /home/asterix/.local/share/applications/firefox.desktop
+    cat >> /home/asterix/.local/share/applications/firefox.desktop << EOL 
+    [Desktop Action $profile1]
+    Name=start $profile1's Firefox
+    Exec=firefox -P $profile1 -no-remote
+    [Desktop Action $profile2]
+    Name=start $profile2's Firefox
+    Exec=firefox -P $profile2 -no-remote
+    EOL
+
     # The shortcut in ~/.local/share/application overrides the system shortcuts in /usr/share/applications. This also removes file associations. Fix those:
     xdg-settings set default-web-browser firefox.desktop
     xdg-mime default firefox.desktop x-scheme-handler/chrome
