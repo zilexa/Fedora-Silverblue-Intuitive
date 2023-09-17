@@ -158,13 +158,13 @@ rm -r $HOME/.mozilla/firefox/*.default
 rm $HOME/.mozilla/firefox/profiles.ini
 
 # Enable default Firefox config file
-sudo tee -a /usr/lib/firefox/defaults/pref/autoconfig.js &>/dev/null << EOF
+sudo tee -a /usr/lib64/firefox/defaults/pref/autoconfig.js &>/dev/null << EOF
 pref("general.config.filename", "firefox.cfg");
 pref("general.config.obscure_value", 0);
 EOF
 # Create default Firefox config file
 # -Use system default file manager - include toolbar layout in Sync - Enable bookmarks bar - set toolbar layout
-sudo tee -a /usr/lib/firefox/firefox.cfg &>/dev/null << EOF
+sudo tee -a /usr/lib64/firefox/firefox.cfg &>/dev/null << EOF
 // IMPORTANT: Start your code on the 2nd line
 defaultPref("dom.w3c_touch_events.enabled",1);
 defaultPref("widget.use-xdg-desktop-portal.file-picker",1);
@@ -175,7 +175,7 @@ defaultPref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow
 EOF
 # Create default firefox policies
 # -Cleanup bookmarks toolbar by disabling default Mozilla bookmarks - install bare minimum extensions
-sudo tee -a /usr/lib/firefox/distribution/policies.json &>/dev/null << EOF
+sudo tee -a /usr/lib64/firefox/distribution/policies.json &>/dev/null << EOF
 {
   "policies": {
     "DisableProfileImport": true,
