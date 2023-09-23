@@ -40,6 +40,7 @@ flatpak install -y app/no.mifi.losslesscut/x86_64/stable
 # Video editor
 flatpak install -y app/org.shotcut.Shotcut/x86_64/stable’
 
+
 echo "___________________________________________________________________________________"
 echo "                                                                                   "
 echo "           GNOME EXTENSIONS - Required for usable and intuitive system             "
@@ -94,7 +95,7 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "                             APPLICATIONS - configure apps                         "
 echo "___________________________________________________________________________________"
-echo "Configure new default file manager"
+echo "Configure NEMO file manager"
 echo "__________________________________"
 # Associate Nemo as the default filemanager
 # For root
@@ -117,7 +118,7 @@ file:///home/${USER}/Media Media
 EOF
 
 
-echo "Configure Pluma text editor" 
+echo "Configure PLUMA text editor" 
 echo "___________________________"
 # Associate Pluma as the default text editor
 sudo sed -i -e 's@libreoffice-writer.desktop;pluma.desktop;@pluma.desktop;libreoffice-writer.desktop;@g' /usr/share/applications/mimeinfo.cache
@@ -129,7 +130,7 @@ sudo xdg-mime default pluma.desktop text/plain
 sudo update-desktop-database /root/.local/share/applications/
 
 
-echo "Configure OnlyOffice" 
+echo "Configure ONLYOFFICE DESKTOPEDITORS" 
 echo "____________________"
 # Enable dark mode, use separate windows instead of tabs
 mkdir -p $HOME/.config/onlyoffice
@@ -139,7 +140,7 @@ editorWindowMode=true
 EOF
 
 
-echo "Configure LibreOffice"
+echo "Configure LIBREOFFICE"
 echo "_____________________"
 #LibreOffice profile enabling tabbed view, Office-like dark mode icons, Calibri default font and Office365 filetype by default and uto-save every 2min"
 cd /tmp
@@ -163,7 +164,7 @@ case ${answer:0:1} in
 esac
 
 
-echo "Configure Firefox"
+echo "Configure FIREFOX"
 echo "_____________________"
 # Enable Firefox support for Wayland
 sudo sh -c "echo MOZ_ENABLE_WAYLAND=1 >> /etc/environment"
