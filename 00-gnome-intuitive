@@ -71,7 +71,7 @@ display-overview-map=true
 highlight-current-line=true
 
 # Extension: Desktop Icons
-[/org/gnome/shell/extensions/ding]
+[org/gnome/shell/extensions/ding]
 show-home=false
 show-network-volumes=false
 start-corner='bottom-left'
@@ -105,7 +105,6 @@ show-external-devices=true
 show-hidden-recent-files=false
 vert-separator=true
 
-
 # Extension: Dash-to-Panel configuration
 [org/gnome/shell/extensions/dash-to-panel]
 animate-appicon-hover=true
@@ -137,12 +136,6 @@ action='toggle-arcmenu'
 
 [org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-6]
 ctrl=true
-
-# Desktop
-gsettings set org.gnome.shell.extensions.ding show-home false
-gsettings set org.gnome.shell.extensions.ding start-corner 'bottom-left'
-gsettings set org.gnome.shell.extensions.ding sort-special-folders true
-gsettings set org.gnome.shell.extensions.ding keep-arranged true
 
 # Screenshots: save to subfolder of Pictures
 [org/gnome/gnome-screenshot]
