@@ -76,6 +76,8 @@ show-home=false
 show-network-volumes=false
 start-corner='bottom-left'
 use-nemo=true
+sort-special-folders=true
+keep-arranged=true
 
 # Extension: Arcmenu pinned apps
 [org/gnome/shell/extensions/arcmenu]
