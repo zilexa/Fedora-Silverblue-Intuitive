@@ -77,18 +77,6 @@ xdg-mime default nemo.desktop x-directory/normal
 xdg-mime default nemo-autorun-software.desktop x-content/unix-software
 update-desktop-database
 
-# Configure Nemo to make it a bit more intuitive
-gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
-gsettings set org.nemo.preferences date-format 'iso'
-gsettings set org.nemo.preferences show-reload-icon-toolbar true
-gsettings set org.nemo.preferences default-folder-viewer 'list-view'
-gsettings set org.nemo.preferences inherit-folder-viewer true
-## also when opening folders as with elevated privileges (root user)
-sudo -u root dbus-launch gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
-sudo -u root dbus-launch gsettings set org.nemo.preferences date-format 'iso'
-sudo -u root dbus-launch gsettings set org.nemo.preferences show-reload-icon-toolbar true
-sudo -u root dbus-launch gsettings set org.nemo.preferences default-folder-viewer 'list-view'
-sudo -u root dbus-launch gsettings set org.nemo.preferences inherit-folder-viewer true
 # Set Nemo bookmarks, reflecting folder that will be renamed later (Videos>Media)
 truncate -s 0 $HOME/.config/gtk-3.0/bookmarks
 tee -a $HOME/.config/gtk-3.0/bookmarks &>/dev/null << EOF
@@ -109,24 +97,6 @@ update-desktop-database ~/.local/share/applications/
 # For root
 sudo xdg-mime default pluma.desktop text/plain
 sudo update-desktop-database /root/.local/share/applications/
-
-#Configuration of Pluma for user
-gsettings set org.mate.pluma highlight-current-line true
-gsettings set org.mate.pluma bracket-matching true
-gsettings set org.mate.pluma display-line-numbers true
-gsettings set org.mate.pluma display-overview-map true
-gsettings set org.mate.pluma auto-indent true
-gsettings set org.mate.pluma active-plugins "['time', 'sort', 'snippets', 'modelines', 'filebrowser', 'docinfo']"
-gsettings set org.mate.pluma color-scheme 'cobalt'
-
-#Configuration of Pluma for root/elevated privileges
-sudo -u root dbus-launch gsettings set org.mate.pluma highlight-current-line true
-sudo -u root dbus-launch gsettings set org.mate.pluma bracket-matching true
-sudo -u root dbus-launch gsettings set org.mate.pluma display-line-numbers true
-sudo -u root dbus-launch gsettings set org.mate.pluma display-overview-map true
-sudo -u root dbus-launch gsettings set org.mate.pluma auto-indent true
-sudo -u root dbus-launch gsettings set org.mate.pluma active-plugins "['time', 'sort', 'snippets', 'modelines', 'filebrowser', 'docinfo']"
-sudo -u root dbus-launch gsettings set org.mate.pluma color-scheme 'cobalt'
 
 echo "Configure OnlyOffice" 
 echo "____________________"
@@ -190,8 +160,38 @@ EOF
 
 echo "___________________________________________________________________________________"
 echo "                                                                                   " 
-echo "  Configure panel (taskbar), App menu (Arcmenu) and common dessktop, GUI settings  "
+echo "  Configure Gnome UI, Gnome Extensions and several apps that integrate in Gnome    "
 echo "___________________________________________________________________________________"
+# Configure Nemo to make it a bit more intuitive
+gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
+gsettings set org.nemo.preferences date-format 'iso'
+gsettings set org.nemo.preferences show-reload-icon-toolbar true
+gsettings set org.nemo.preferences default-folder-viewer 'list-view'
+gsettings set org.nemo.preferences inherit-folder-viewer true
+## also when opening folders as with elevated privileges (root user)
+sudo -u root dbus-launch gsettings set org.nemo.preferences quick-renames-with-pause-in-between true
+sudo -u root dbus-launch gsettings set org.nemo.preferences date-format 'iso'
+sudo -u root dbus-launch gsettings set org.nemo.preferences show-reload-icon-toolbar true
+sudo -u root dbus-launch gsettings set org.nemo.preferences default-folder-viewer 'list-view'
+sudo -u root dbus-launch gsettings set org.nemo.preferences inherit-folder-viewer true
+
+#Configuration of Pluma for user
+gsettings set org.mate.pluma highlight-current-line true
+gsettings set org.mate.pluma bracket-matching true
+gsettings set org.mate.pluma display-line-numbers true
+gsettings set org.mate.pluma display-overview-map true
+gsettings set org.mate.pluma auto-indent true
+gsettings set org.mate.pluma active-plugins "['time', 'sort', 'snippets', 'modelines', 'filebrowser', 'docinfo']"
+gsettings set org.mate.pluma color-scheme 'cobalt'
+#Configuration of Pluma for root/elevated privileges
+sudo -u root dbus-launch gsettings set org.mate.pluma highlight-current-line true
+sudo -u root dbus-launch gsettings set org.mate.pluma bracket-matching true
+sudo -u root dbus-launch gsettings set org.mate.pluma display-line-numbers true
+sudo -u root dbus-launch gsettings set org.mate.pluma display-overview-map true
+sudo -u root dbus-launch gsettings set org.mate.pluma auto-indent true
+sudo -u root dbus-launch gsettings set org.mate.pluma active-plugins "['time', 'sort', 'snippets', 'modelines', 'filebrowser', 'docinfo']"
+sudo -u root dbus-launch gsettings set org.mate.pluma color-scheme 'cobalt'
+
 # add minimise and maximise to window title bar
 gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
 # Pin common apps to Arc Menu
