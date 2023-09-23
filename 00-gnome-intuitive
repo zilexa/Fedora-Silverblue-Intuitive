@@ -1,0 +1,188 @@
+[org/gnome/shell]
+# Extensions
+enabled-extensions=['gnome-ui-tune@itstime.tech', 'ding@rastersoft.com', 'appindicatorsupport@rgcjonas.gmail.com', 'dash-to-panel@jderose9.github.com', 'arcmenu@arcmenu.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'custom-hot-corners-extended@G-dH.github.com', 'gestureImprovements@gestures', 'BingWallpaper@ineffable-gmail.com', 'allowlockedremotedesktop@kamens.us', 'improvedosk@nick-shmyrev.dev']
+# Dash (Dash-to-Panel) pinned apps
+favorite-apps=['firefox.desktop', 'org.onlyoffice.desktopeditors.desktop', 'nemo.desktop', 'pluma.desktop', 'org.gnome.Calculator.desktop']
+# Use power-saver (quiet & cool laptop/pc)
+last-selected-power-profile='power-saver'
+
+[org/gnome/settings-daemon/plugins/power]
+ambient-enabled=true
+idle-dim=true
+power-button-action='hibernate'
+power-saver-profile-on-low-battery=true
+sleep-inactive-ac-timeout=3600
+sleep-inactive-battery-timeout=1200
+
+[org/gnome/desktop/interface]
+color-scheme='prefer-dark'
+gtk-theme='Adwaita-dark'
+icon-theme='breeze-dark'
+show-battery-percentage=true
+text-scaling-factor=1.0
+
+[org/gnome/desktop/wm/preferences]
+# Add minimise and maximise to app windows
+button-layout='appmenu:minimize,maximize,close'
+
+[org/gnome/desktop/calendar]
+show-weekdate=true
+
+[org/gnome/desktop/datetime]
+automatic-timezone=true
+
+[org/gnome/desktop/peripherals/touchpad]
+natural-scroll=false
+
+# Gnome Settings
+[org/gnome/desktop/privacy]
+remove-old-temp-files=true
+remove-old-trash-files=true
+
+[org/gnome/system/location]
+enabled=true
+
+[org/gnome/settings-daemon/plugins/color]
+night-light-enabled=true
+night-light-schedule-automatic=false
+night-light-schedule-from=22.0
+night-light-schedule-to=8.75
+
+
+# Nemo file manager preferences
+[org/nemo/preferences]
+date-format='iso'
+default-folder-viewer='list-view'
+inherit-folder-viewer=true
+quick-renames-with-pause-in-between=true
+show-hidden-files=true
+show-reload-icon-toolbar=true
+
+# Pluma text editor preferences
+[org/mate/pluma]
+active-plugins=['time', 'sort', 'snippets', 'modelines', 'filebrowser', 'docinfo']
+auto-indent=true
+background-pattern='none'
+bottom-panel-size=140
+bracket-matching=true
+color-scheme='cobalt'
+display-line-numbers=true
+display-overview-map=true
+highlight-current-line=true
+
+# Extension: Desktop Icons
+[/org/gnome/shell/extensions/ding]
+show-home=false
+show-network-volumes=false
+start-corner='bottom-left'
+use-nemo=true
+
+# Extension: Arcmenu pinned apps
+[org/gnome/shell/extensions/arcmenu]
+pinned-app-list=['', '', 'firefox.desktop', '', '', 'org.gnome.Nautilus.desktop', '', '', 'org.gnome.Terminal.desktop', 'ArcMenu Settings', 'ArcMenu_ArcMenuIcon', 'gnome-extensions prefs arcmenu@arcmenu.com', 'ONLYOFFICE Desktop Editors', '', 'org.onlyoffice.desktopeditors.desktop']
+# Arcmenu config
+[org/gnome/shell/extensions/arcmenu]
+alphabetize-all-programs=true
+application-shortcuts-list=[['Settings', 'org.gnome.Settings', 'org.gnome.Settings.desktop'], ['Tweaks', 'org.gnome.tweaks', 'org.gnome.tweaks.desktop'], ['Extension Manager', 'com.mattjakeman.ExtensionManager', 'com.mattjakeman.ExtensionManager.desktop'], ['Terminal', 'org.gnome.Terminal', 'org.gnome.Terminal.desktop'], ['Software', 'org.gnome.Software', 'ArcMenu_Software']]
+button-item-icon-size='Medium'
+default-menu-view-redmond='Pinned_Apps'
+disable-user-avatar=true
+enable-horizontal-flip=true
+enable-standlone-runner-menu=false
+hide-overview-on-startup=true
+menu-button-appearance='Text'
+menu-layout='Redmond'
+multi-monitor=true
+pop-folders-data={'Library Home': 'Library Home', 'Utilities': 'Utilities', 'YaST': 'YaST2 Modules'}
+power-display-style='Menu'
+power-options=[(0, true), (1, false), (2, true), (3, true), (4, false), (5, true), (6, true), (7, false)]
+prefs-visible-page=0
+quicklinks-item-icon-size='Medium'
+search-provider-recent-files=true
+searchbar-default-top-location='Top'
+show-bookmarks=true
+show-external-devices=true
+show-hidden-recent-files=false
+vert-separator=true
+
+
+# Extension: Dash-to-Panel configuration
+[org/gnome/shell/extensions/dash-to-panel]
+animate-appicon-hover=true
+animate-appicon-hover-animation-convexity={'RIPPLE': 2.0, 'PLANK': 1.0, 'SIMPLE': 0.0}
+animate-appicon-hover-animation-extent={'RIPPLE': 4, 'PLANK': 4, 'SIMPLE': 1}
+animate-appicon-hover-animation-type='SIMPLE'
+animate-appicon-hover-animation-zoom={'SIMPLE': 1.3300000000000001, 'RIPPLE': 1.25, 'PLANK': 2.0}
+dot-position='BOTTOM'
+hotkeys-overlay-combo='TEMPORARILY'
+leftbox-padding=-1
+panel-anchors='{"0":"MIDDLE"}'
+panel-element-positions='{"0":[{"element":"showAppsButton","visible":false,"position":"stackedTL"},{"element":"activitiesButton","visible":false,"position":"stackedTL"},{"element":"leftBox","visible":true,"position":"stackedTL"},{"element":"taskbar","visible":true,"position":"centered"},{"element":"centerBox","visible":true,"position":"stackedBR"},{"element":"rightBox","visible":true,"position":"stackedBR"},{"element":"dateMenu","visible":true,"position":"stackedBR"},{"element":"systemMenu","visible":true,"position":"stackedBR"},{"element":"desktopButton","visible":true,"position":"stackedBR"}]}'
+panel-positions='{"0":"LEFT"}'
+panel-sizes='{"0":57}'
+trans-dynamic-anim-target=0.59999999999999998
+trans-use-custom-opacity=true
+trans-use-dynamic-opacity=true
+tray-padding=-1
+window-preview-title-position='TOP'
+
+# Extension: Hot Corners
+[org/gnome/shell/extensions/custom-hot-corners-extended/misc]
+panel-menu-enable=false
+show-osd-monitor-indexes=false
+supported-active-extensions=['arcmenu']
+
+[org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-0]
+action='toggle-arcmenu'
+
+[org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-6]
+ctrl=true
+
+# Desktop
+gsettings set org.gnome.shell.extensions.ding show-home false
+gsettings set org.gnome.shell.extensions.ding start-corner 'bottom-left'
+gsettings set org.gnome.shell.extensions.ding sort-special-folders true
+gsettings set org.gnome.shell.extensions.ding keep-arranged true
+
+# Screenshots: save to subfolder of Pictures
+[org/gnome/gnome-screenshot]
+auto-save-directory='file:///home/asterix/Pictures/Screenshots/'
+
+# Screenshots: allow instant screenshots instead of being forced to use the UI popup
+[org/gnome/settings-daemon/plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/']
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Ctrl><Alt>T'
+command='gnome-terminal'
+name='Terminal'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+binding='Print'
+command='gnome-screenshot -a'
+name='Area screenshot to custom folder'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2]
+binding='<Shift>Print'
+command='gnome-screenshot -a -c'
+name='Area screenshot to clipboard'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3]
+binding='<Alt>Print'
+command='gnome-screenshot -w -p'
+name='Window screenshot to custom folder'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4]
+binding='<Primary>Print'
+command='gnome-screenshot -w -c'
+name='window screenshot to clipboard'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5]
+binding='<Primary><Shift>Print'
+command='gnome-screenshot -i -p'
+name='Interactive screenshot to cust folder'
+
+[org/gnome/shell/keybindings]
+screenshot=@as []
+screenshot-window=@as []
+show-screenshot-ui=@as []
