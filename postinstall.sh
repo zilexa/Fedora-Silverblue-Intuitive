@@ -11,34 +11,32 @@ echo "                                                                          
 echo "               APPLICATIONS - Install required and recommended apps                "
 echo "___________________________________________________________________________________"
 # Install apps
-# Hardware support: rotation sensor
-sudo zypper install -y iio-sensor-proxy
 # Wireguard VPN support
-sudo zypper install -y wireguard-tools
+rpm-ostree install wireguard-tools
 # Gnome screenshot without having to go through UI
-sudo zypper install -y gnome-screenshot
+rpm-ostree install gnome-screenshot
 # Gnome Connections, to connect to other PCs/Laptops via RDP or VNC
-sudo zypper install -y gnome-connections
+rpm-ostree install gnome-connections
 # Nemo filemanager and useful plugins (replacing gnome files, Nautilus)
-sudo zypper install -y nemo nemo-extension-audio-tab nemo-extension-compare nemo-extension-emblems nemo-extension-folder-color nemo-extension-image-converter nemo-extension-preview nemo-extension-repairer nemo-extension-seahorse nemo-extension-share nemo-font-manager
+rpm-ostree install nemo
 # Text Editor (replacing default gnome-text-editor)
-sudo zypper install -y pluma
+rpm-ostree install pluma
 # Nextcloud Desktop Client
-sudo zypper install -y nextcloud-desktop
+rpm-ostree install nextcloud-client
 # Bleachbit cleanup tool
-sudo zypper install -y bleachbit
+flatpak install -y flathub org.bleachbit.BleachBit
 # Music editor tool
-sudo zypper install -y audacity
+flatpak install -y flathub org.audacityteam.Audacity
 # Image editor tool
-sudo zypper install -y pinta
+flatpak install -y flathub com.github.PintaProject.Pinta
 # Photo management tool
-sudo zypper install -y digikam
+flatpak install -y flathub org.kde.digikam
 # Video converter
-flatpak install -y app/fr.handbrake.ghb/x86_64/stable
+flatpak install -y flathub app/fr.handbrake.ghb/x86_64/stable
 # Video trimmer
-flatpak install -y app/no.mifi.losslesscut/x86_64/stable
+flatpak install -y flathub app/no.mifi.losslesscut/x86_64/stable
 # Video editor
-flatpak install -y app/org.shotcut.Shotcut/x86_64/stable’
+flatpak install -y flathub app/org.shotcut.Shotcut/x86_64/stable’
 
 
 echo "___________________________________________________________________________________"
