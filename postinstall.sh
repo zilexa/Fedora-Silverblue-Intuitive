@@ -10,20 +10,16 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "               APPLICATIONS - Install required and recommended apps                "
 echo "___________________________________________________________________________________"
+# Wireguard VPN support
+# Gnome screenshot without having to go through UI
+# Gnome Connections, to connect to other PCs/Laptops via RDP or VNC
+# Nemo filemanager and useful plugins (replacing gnome files, Nautilus)
+# Text Editor (replacing default gnome-text-editor)
+# Nextcloud Desktop Client
+# Gnome Extensions that are available as system package
+rpm-ostree install wireguard-tools gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
 # add Flathub repo
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-# Wireguard VPN support
-rpm-ostree install wireguard-tools
-# Gnome screenshot without having to go through UI
-rpm-ostree install gnome-screenshot
-# Gnome Connections, to connect to other PCs/Laptops via RDP or VNC
-rpm-ostree install gnome-connections
-# Nemo filemanager and useful plugins (replacing gnome files, Nautilus)
-rpm-ostree install nemo
-# Text Editor (replacing default gnome-text-editor)
-rpm-ostree install pluma
-# Nextcloud Desktop Client
-rpm-ostree install nextcloud-client
 # Bleachbit cleanup tool
 flatpak install -y flathub org.bleachbit.BleachBit
 # Music editor tool
@@ -46,31 +42,21 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "           GNOME EXTENSIONS - Required for usable and intuitive system             "
 echo "___________________________________________________________________________________"
-# A few extensions are available system-wide as RPM package
-rpm-ostree install gnome-shell-extension-dash-to-panel.noarch
-rpm-ostree install gnome-shell-extension-appindicator.noarch
-rpm-ostree install gnome-shell-extension-drive-menu.noarch
-
-# Install Gnome-Extensions-CLI to insall gnome extensions via command line
-rpm-ostree install pipx
-pipx install gnome-extensions-cli --system-site-packages
-
 #Install extensions that cannot be installed+autoupdated system-wide on Fedora SilverBlue  
-# ArcMenu
-gext install arcmenu@arcmenu.com
-# Desktop Icons
-gext install gtk4-ding@smedius.gitlab.com
-# Improved On Screen Keyboard
-gext install improvedosk@nick-shmyrev.dev
-# Allow Locked Remote Desktop
-gext install allowlockedremotedesktop@kamens.us
-# Gnome UI Tune
-gext install gnome-ui-tune@itstime.tech
-# Custom Hot Corners
-gext install custom-hot-corners-extended@G-dH.github.com
-# Bing Wallpaper for all users
-gext install BingWallpaper@ineffable-gmail.com
-
+wget -O install-gnome-extensions.sh https://raw.githubusercontent.com/ToasterUwU/install-gnome-extensions/master/install-gnome-extensions.sh
+# ArcMenu (arcmenu@arcmenu.com)
+install-gnome-extensions.sh --enable 3628
+# Desktop Icons (gtk4-ding@smedius.gitlab.com)
+install-gnome-extensions.sh --enable 5263
+# Improved On Screen Keyboard (improvedosk@nick-shmyrev.dev)
+install-gnome-extensions.sh --enable 4413
+# Allow Locked Remote Desktop (allowlockedremotedesktop@kamens.us)
+install-gnome-extensions.sh --enable 4338
+# Custom Hot Corners (custom-hot-corners-extended@G-dH.github.com)
+install-gnome-extensions.sh --enable 4167
+# Bing Wallpaper (BingWallpaper@ineffable-gmail.com)
+install-gnome-extensions.sh --enable 1262
+rm install-gnome-extensions.sh 
 
 echo "___________________________________________________________________________________"
 echo "                                                                                   " 
