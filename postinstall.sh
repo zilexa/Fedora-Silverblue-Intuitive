@@ -36,40 +36,39 @@ flatpak install -y flathub app/fr.handbrake.ghb/x86_64/stable
 # Video trimmer
 flatpak install -y flathub app/no.mifi.losslesscut/x86_64/stable
 # Video editor
-flatpak install -y flathub app/org.shotcut.Shotcut/x86_64/stable’
+flatpak install -y flathub app/org.shotcut.Shotcut/x86_64/stable
+# Gnome Extension Manager
+flatpak install -y flathub com.mattjakeman.ExtensionManager
 
 
 echo "___________________________________________________________________________________"
 echo "                                                                                   "
 echo "           GNOME EXTENSIONS - Required for usable and intuitive system             "
 echo "___________________________________________________________________________________"
-# Install Gnome Extensions to support a more friendly and intuitive GUI
-# Install script to easily install extensions system wide
-wget -O gnome-shell-extension-installer.sh "https://github.com/brunelli/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
-# ArcMenu for all users
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 3628
-# Gesture Improvements for all users
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 4245
-# Dash to Panel for all users
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 1160
-# Bing Wallpaper for all users
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 1262
-# Improved On Screen Keyboard
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 4413
-# Allow Locked Remote Desktop
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 4338
-# Gnome UI Tune
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 4158
+# A few extensions are available system-wide as RPM package
+rpm-ostree install gnome-shell-extension-dash-to-panel.noarch
+rpm-ostree install gnome-shell-extension-appindicator.noarch
+rpm-ostree install gnome-shell-extension-drive-menu.noarch
+
+# Install Gnome-Extensions-CLI to insall gnome extensions via command line
+rpm-ostree install pipx
+pipx install gnome-extensions-cli --system-site-packages
+
+#Install extensions that cannot be installed+autoupdated system-wide on Fedora SilverBlue  
+# ArcMenu
+gext install arcmenu@arcmenu.com
 # Desktop Icons
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 2087
-# AppIndicator
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 615
+gext install gtk4-ding@smedius.gitlab.com
+# Improved On Screen Keyboard
+gext install improvedosk@nick-shmyrev.dev
+# Allow Locked Remote Desktop
+gext install allowlockedremotedesktop@kamens.us
+# Gnome UI Tune
+gext install gnome-ui-tune@itstime.tech
 # Custom Hot Corners
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 4167
-# Removable Drive Menu
-sudo bash /home/asterix/gnome-shell-extension-installer.sh 7
-# Fix permissions of folder containing system-wide extensions otherwise regular users have no access, extensions won't be visible.
-sudo chmod -R 755 /usr/share/gnome-shell/extensions
+gext install custom-hot-corners-extended@G-dH.github.com
+# Bing Wallpaper for all users
+gext install BingWallpaper@ineffable-gmail.com
 
 
 echo "___________________________________________________________________________________"
