@@ -3,7 +3,11 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "                         APPLICATIONS - Remove unused apps                         "
 echo "___________________________________________________________________________________"
-#sudo zypper remove nautilus evolution gnome-text-editor
+# Get language info
+echo "---------------------------------------"
+echo "Besides English, what other language would you like to spellcheck?" answer
+echo "Please type the 2-letter countrycode for the language you would like to install, for example "de" for German language (no caps):"
+read -p 'countrycode for example "nl" and hit ENTER: ' lang
 
 
 echo "___________________________________________________________________________________"
@@ -17,7 +21,7 @@ echo "__________________________________________________________________________
 # Text Editor (replacing default gnome-text-editor)
 # Nextcloud Desktop Client
 # Gnome Extensions that are available as system package
-rpm-ostree install wireguard-tools gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
+rpm-ostree install hunspell-$lang wireguard-tools gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
 # add Flathub repo
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # Bleachbit cleanup tool
@@ -26,6 +30,8 @@ flatpak install -y flathub org.bleachbit.BleachBit
 flatpak install -y flathub org.audacityteam.Audacity
 # Image editor tool
 flatpak install -y flathub com.github.PintaProject.Pinta
+# GIMP advanced image editor
+flatpak install -y fedora org.gimp.GIMP  
 # Photo management tool
 flatpak install -y flathub org.kde.digikam
 # Video converter
@@ -36,6 +42,10 @@ flatpak install -y flathub app/no.mifi.losslesscut/x86_64/stable
 flatpak install -y flathub app/org.shotcut.Shotcut/x86_64/stable
 # Gnome Extension Manager
 flatpak install -y flathub com.mattjakeman.ExtensionManager
+# OnlyOffice
+flatpak install -y flathub org.onlyoffice.desktopeditors
+# LibreOffice
+flatpak install -y fedora org.libreoffice.LibreOffice
 
 
 echo "___________________________________________________________________________________"
@@ -57,6 +67,7 @@ install-gnome-extensions.sh --enable 4167
 # Bing Wallpaper (BingWallpaper@ineffable-gmail.com)
 install-gnome-extensions.sh --enable 1262
 rm install-gnome-extensions.sh 
+
 
 echo "___________________________________________________________________________________"
 echo "                                                                                   " 
@@ -131,21 +142,6 @@ cd /tmp
 wget -O /tmp/libreoffice-profile.tar.xz "https://github.com/zilexa/manjaro-gnome-post-install/raw/main/files/libreoffice-profile.tar.xz"
 tar -xvf /tmp/libreoffice-profile.tar.xz -C $HOME/.config
 rm /tmp/libreoffice-profile.tar.xz
-
-# Install LibreOffice languagepack
-echo "---------------------------------------"
-echo "Install languagepack for LibreOffice?" answer
-
-case ${answer:0:1} in
-    y|Y )
-    echo "Please type the 2-letter countrycode for the language you would like to install, for example "de" for German language (no caps):"
-    read -p 'countrycode for example "nl" and hit ENTER: ' lang
-    sudo pamac install --no-confirm libreoffice-fresh-$lang hunspell-$lang hyphen-$lang
-    ;;
-    * )
-        echo "Not installing a languagepack for LibreOffice..." 
-    ;;
-esac
 
 
 echo "Configure FIREFOX"
