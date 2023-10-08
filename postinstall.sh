@@ -3,14 +3,15 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "                         APPLICATIONS - Remove unused apps                         "
 echo "___________________________________________________________________________________"
-sudo zypper remove nautilus evolution gnome-text-editor
+#sudo zypper remove nautilus evolution gnome-text-editor
 
 
 echo "___________________________________________________________________________________"
 echo "                                                                                   "
 echo "               APPLICATIONS - Install required and recommended apps                "
 echo "___________________________________________________________________________________"
-# Install apps
+# add Flathub repo
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # Wireguard VPN support
 rpm-ostree install wireguard-tools
 # Gnome screenshot without having to go through UI
