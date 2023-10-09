@@ -14,14 +14,13 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "               APPLICATIONS - Install required and recommended apps                "
 echo "___________________________________________________________________________________"
-# 
-# disable Firefox in the base image
-rpm-ostree override remove firefox 
-# Add tools and applications by overlaying
+# Add tools and applications by overlaying the base image
 rpm-ostree install hunspell-$lang wireguard-tools gnome-tweaks gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
+# disable Firefox in the base image - it does not allow video playback due to lack of proprietary codecs
+rpm-ostree override remove firefox 
 # add Flathub repo and install remaining apps as flatpaks
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-# Firefox and ffmpeg
+# Firefox and ffmpeg to ensure support for all videos
 flatpak install -y flathub org.mozilla.firefox flathub org.freedesktop.Platform.ffmpeg-full
 # Gnome videos
 flatpak install flathub org.gnome.Totem
