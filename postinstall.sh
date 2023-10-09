@@ -24,6 +24,8 @@ echo "__________________________________________________________________________
 rpm-ostree install hunspell-$lang wireguard-tools gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
 # add Flathub repo
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+# Firefox
+rpm-ostree override remove firefox && flatpak install flathub org.mozilla.firefox flathub org.freedesktop.Platform.ffmpeg-full
 # Bleachbit cleanup tool
 flatpak install -y flathub org.bleachbit.BleachBit
 # Music editor tool
@@ -147,7 +149,7 @@ rm /tmp/libreoffice-profile.tar.xz
 echo "Configure FIREFOX"
 echo "_____________________"
 # Enable Firefox support for Wayland
-sudo sh -c "echo MOZ_ENABLE_WAYLAND=1 >> /etc/environment"
+sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
 # For current and future system users and profiles
 # Create default policies (install minimal set of extensions and theme, enable syncing of your toolbar layout, disable default Mozilla bookmarks)
 # first delete existing profiles
@@ -167,6 +169,11 @@ EOF
 # -Use system default file manager - include toolbar layout in Sync - Enable bookmarks bar - set toolbar layout
 sudo tee -a /usr/lib64/firefox/firefox.cfg &>/dev/null << EOF
 // IMPORTANT: Start your code on the 2nd line
+defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
+defaultPref("media.ffmpeg.vaapi.enabled",true);
+defaultPref("media.ffvpx.enabled",false);
+defaultPref("media.navigator.mediadatadecoder_vpx_enabled",true);
+defaultPref("media.rdd-vpx.enabled",false);
 defaultPref("dom.w3c_touch_events.enabled",1);
 defaultPref("widget.use-xdg-desktop-portal.file-picker",1);
 defaultPref("widget.use-xdg-desktop-portal.mime-handler",1);
