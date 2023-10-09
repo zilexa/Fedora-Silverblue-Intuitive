@@ -155,6 +155,9 @@ rm -r $HOME/.mozilla/firefox/*.default-release
 rm -r $HOME/.mozilla/firefox/*.default
 rm $HOME/.mozilla/firefox/profiles.ini
 
+# Create a persistent, writeable /usr layer to make changes to the /usr/lib64/firefox folder, applying a policy and defaultPrefs
+sudo rpm-ostree usroverlay --hotfix
+
 # Enable default Firefox config file
 sudo tee -a /usr/lib64/firefox/defaults/pref/autoconfig.js &>/dev/null << EOF
 pref("general.config.filename", "firefox.cfg");
