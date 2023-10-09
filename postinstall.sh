@@ -21,11 +21,13 @@ echo "__________________________________________________________________________
 # Text Editor (replacing default gnome-text-editor)
 # Nextcloud Desktop Client
 # Gnome Extensions that are available as system package
-rpm-ostree override remove firefox --install hunspell-$lang wireguard-tools gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
+rpm-ostree override remove firefox --install hunspell-$lang wireguard-tools compact-ffmpeg28 gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
 # add Flathub repo
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # Firefox
 flatpak install -y flathub org.mozilla.firefox flathub org.freedesktop.Platform.ffmpeg-full
+# Gnome videos
+flatpak install flathub org.gnome.Totem
 # Bleachbit cleanup tool
 flatpak install -y flathub org.bleachbit.BleachBit
 # Music editor tool
