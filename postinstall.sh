@@ -14,16 +14,19 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "               APPLICATIONS - Install required and recommended apps                "
 echo "___________________________________________________________________________________"
+# Disable Firefox in the base image - it does not allow video playback due to lack of proprietary codecs
+rpm-ostree override remove firefox 
 # Add tools and applications by overlaying the base image
 rpm-ostree install hunspell-$lang wireguard-tools gnome-tweaks gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
-# disable Firefox in the base image - it does not allow video playback due to lack of proprietary codecs
-rpm-ostree override remove firefox 
+# Add RPM Fusion to allow for other apps to install, like AMD, INTEL or NVIDIA drivers
+sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
 # add Flathub repo and install remaining apps as flatpaks
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # Firefox and ffmpeg to ensure support for all videos
 flatpak install -y flathub org.mozilla.firefox flathub org.freedesktop.Platform.ffmpeg-full
-# Gnome videos
-flatpak install flathub org.gnome.Totem
+# MPV video player
+flatpak install -y fedora app/io.mpv.Mpv/x86_64/stable
 # Bleachbit cleanup tool
 flatpak install -y flathub org.bleachbit.BleachBit
 # Music editor tool
