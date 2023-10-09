@@ -32,6 +32,7 @@ show-weekdate=true
 automatic-timezone=true
 
 [org/gnome/desktop/peripherals/touchpad]
+tap-to-click=true
 natural-scroll=false
 
 # Gnome Settings
