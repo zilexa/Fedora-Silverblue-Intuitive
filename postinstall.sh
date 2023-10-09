@@ -20,6 +20,7 @@ rpm-ostree override remove firefox
 rpm-ostree install hunspell-$lang wireguard-tools gnome-tweaks gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
 # Add RPM Fusion to allow for other apps to install, like AMD, INTEL or NVIDIA drivers
 sudo rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+# Note: currently this script does not install anything from RPMFusion, but for example for Intel devices intel-media-driver would be required!
 
 # add Flathub repo and install remaining apps as flatpaks
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
