@@ -218,14 +218,14 @@ case ${answer:0:1} in
     read -p 'firefox profile 2 name (e.g. John): ' profile2
     echo adding profiles to right-click of Firefox shortcut... 
     sudo sed -i -e 's@Actions=new-window;new-incognito-window;@Actions=new-window;$profile1;$profile2;@g' /home/asterix/.local/share/applications/firefox.desktop
-    cat >> /home/asterix/.local/share/applications/firefox.desktop << EOF 
+    cat >> /home/asterix/.local/share/applications/firefox.desktop << EOF
     [Desktop Action $profile1]
     Name=start $profile1's Firefox
     Exec=firefox -P $profile1 -no-remote
     [Desktop Action $profile2]
     Name=start $profile2's Firefox
     Exec=firefox -P $profile2 -no-remote
-    EOF
+EOF
 
     # The shortcut in ~/.local/share/application overrides the system shortcuts in /usr/share/applications. This also removes file associations. Fix those:
     xdg-settings set default-web-browser firefox.desktop
