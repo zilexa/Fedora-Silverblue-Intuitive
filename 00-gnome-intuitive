@@ -2,7 +2,7 @@
 # Extensions
 enabled-extensions=['gnome-ui-tune@itstime.tech', 'ding@rastersoft.com', 'appindicatorsupport@rgcjonas.gmail.com', 'dash-to-panel@jderose9.github.com', 'arcmenu@arcmenu.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'custom-hot-corners-extended@G-dH.github.com', 'gestureImprovements@gestures', 'BingWallpaper@ineffable-gmail.com', 'allowlockedremotedesktop@kamens.us', 'improvedosk@nick-shmyrev.dev']
 # Dash (Dash-to-Panel) pinned apps
-favorite-apps=['firefox.desktop', 'org.onlyoffice.desktopeditors.desktop', 'nemo.desktop', 'pluma.desktop', 'org.gnome.Calculator.desktop']
+favorite-apps=['nemo.desktop', 'firefox.desktop', 'org.onlyoffice.desktopeditors.desktop', 'xed.desktop', 'org.gnome.Calculator.desktop']
 # Use power-saver (quiet & cool laptop/pc)
 last-selected-power-profile='power-saver'
 
@@ -59,7 +59,13 @@ quick-renames-with-pause-in-between=true
 show-hidden-files=true
 show-reload-icon-toolbar=true
 
-# Pluma text editor preferences
+# Xed text editor preferences
+[org/x/editor/preferences/editor]
+scheme='cobalt'
+display-line-numbers=true
+highlight-current-line=true
+bracket-matching=true
+
 [org/mate/pluma]
 active-plugins=['time', 'sort', 'snippets', 'modelines', 'filebrowser', 'docinfo']
 auto-indent=true
@@ -82,11 +88,11 @@ keep-arranged=true
 
 # Extension: Arcmenu pinned apps
 [org/gnome/shell/extensions/arcmenu]
-pinned-app-list=['', '', 'firefox.desktop', '', '', 'org.gnome.Nautilus.desktop', '', '', 'org.gnome.Terminal.desktop', 'ArcMenu Settings', 'ArcMenu_ArcMenuIcon', 'gnome-extensions prefs arcmenu@arcmenu.com', 'ONLYOFFICE Desktop Editors', '', 'org.onlyoffice.desktopeditors.desktop']
+pinned-app-list=['Files', '', 'nemo.desktop', 'Firefox', '', 'firefox.desktop', 'ONLYOFFICE Desktop Editors', '', 'org.onlyoffice.desktopeditors.desktop', 'Text Editor', '', 'xed.desktop', 'Calculator', '', 'org.gnome.Calculator.desktop', 'digiKam', '', 'org.kde.digikam.desktop', 'Pinta Image Editor', '', 'com.github.PintaProject.Pinta.desktop', 'GNU Image Manipulation Program', '', 'org.gimp.GIMP.desktop', 'Tenacity', '', 'org.tenacityaudio.Tenacity.desktop', 'HandBrake', '', 'fr.handbrake.ghb.desktop', 'LosslessCut', '', 'no.mifi.losslesscut.desktop', 'Shotcut', '', 'org.shotcut.Shotcut.desktop', 'Connections', '', 'org.gnome.Connections.desktop', 'BleachBit', '', 'org.bleachbit.BleachBit.desktop', 'LibreOffice Writer', '', 'org.libreoffice.LibreOffice.writer.desktop', 'LibreOffice Calc', '', 'org.libreoffice.LibreOffice.calc.desktop', 'LibreOffice Impress', '', 'org.libreoffice.LibreOffice.impress.desktop']
 # Arcmenu config
 [org/gnome/shell/extensions/arcmenu]
 alphabetize-all-programs=true
-application-shortcuts-list=[['Settings', 'org.gnome.Settings', 'org.gnome.Settings.desktop'], ['Tweaks', 'org.gnome.tweaks', 'org.gnome.tweaks.desktop'], ['Extension Manager', 'com.mattjakeman.ExtensionManager', 'com.mattjakeman.ExtensionManager.desktop'], ['Terminal', 'org.gnome.Terminal', 'org.gnome.Terminal.desktop'], ['Software', 'org.gnome.Software', 'ArcMenu_Software']]
+application-shortcuts-list=[['Software', 'org.gnome.Software', 'ArcMenu_Software'], ['Settings', 'org.gnome.Settings', 'org.gnome.Settings.desktop'], ['Tweaks', 'org.gnome.tweaks', 'org.gnome.tweaks.desktop'], ['Extension Manager', 'com.mattjakeman.ExtensionManager', 'com.mattjakeman.ExtensionManager.desktop'], ['Terminal', 'org.gnome.Terminal', 'org.gnome.Terminal.desktop']]
 button-item-icon-size='Medium'
 default-menu-view-redmond='Pinned_Apps'
 disable-user-avatar=true
@@ -96,7 +102,6 @@ hide-overview-on-startup=true
 menu-button-appearance='Text'
 menu-layout='Redmond'
 multi-monitor=true
-pop-folders-data={'Library Home': 'Library Home', 'Utilities': 'Utilities', 'YaST': 'YaST2 Modules'}
 power-display-style='Menu'
 power-options=[(0, true), (1, false), (2, true), (3, true), (4, false), (5, true), (6, true), (7, false)]
 prefs-visible-page=0
