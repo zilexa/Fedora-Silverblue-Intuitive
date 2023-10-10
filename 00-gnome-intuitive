@@ -140,6 +140,10 @@ action='toggle-arcmenu'
 [org/gnome/shell/extensions/custom-hot-corners-extended/monitor-0-top-left-6]
 ctrl=true
 
+# Extension: Bing wallpaper
+[org/gnome/shell/extensions/bingwallpaper]
+download-folder='~/Pictures/Wallpapers'
+
 # Screenshots: save to subfolder of Pictures
 [org/gnome/gnome-screenshot]
 auto-save-directory='file:///home/asterix/Pictures/Screenshots/'
