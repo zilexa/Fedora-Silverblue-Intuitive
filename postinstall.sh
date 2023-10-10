@@ -120,6 +120,7 @@ bash install-gnome-extensions.sh --enable 4338
 bash install-gnome-extensions.sh --enable 4167
 # Bing Wallpaper (BingWallpaper@ineffable-gmail.com)
 bash install-gnome-extensions.sh --enable 1262
+mkdir $HOME/Pictures/Wallpapers
 rm install-gnome-extensions.sh 
 
 
