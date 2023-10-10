@@ -147,6 +147,10 @@ echo "                             APPLICATIONS - configure apps                
 echo "___________________________________________________________________________________"
 echo "Configure NEMO file manager"
 echo "__________________________________"
+# Fix the shortcut
+cp /usr/share/applications/nemo.desktop /home/asterix/.local/share/applications/
+sed -i -e 's@OnlyShowIn=X-Cinnamon;Budgie;@#OnlyShowIn=X-Cinnamon;Budgie;@g' /home/asterix/.local/share/applications/nemo.desktop
+
 # Associate Nemo as the default filemanager
 # For root
 sudo xdg-mime default nemo.desktop inode/directory
@@ -170,6 +174,9 @@ EOF
 
 echo "Configure PLUMA text editor" 
 echo "___________________________"
+# Fix the icon
+cp /usr/share/applications/pluma.desktop /home/asterix/.local/share/applications/
+sed -i -e 's@Icon=accessories-text-editor@Icon=org.gnome.TextEditor@g' /home/asterix/.local/share/applications/nemo.desktop
 # Associate Pluma as the default text editor
 sudo sed -i -e 's@libreoffice-writer.desktop;pluma.desktop;@pluma.desktop;libreoffice-writer.desktop;@g' /usr/share/applications/mimeinfo.cache
 # For current user
@@ -230,7 +237,7 @@ case ${answer:0:1} in
     echo "Please enter the second Firefox profile (user) name:"
     read -p 'firefox profile 2 name (e.g. John): ' profile2
     echo adding profiles to right-click of Firefox shortcut... 
-    sudo sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$profile1;$profile2;@g' /home/asterix/.local/share/applications/firefox.desktop
+    sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$profile1;$profile2;@g' /home/asterix/.local/share/applications/firefox.desktop
     cat >> /home/asterix/.local/share/applications/firefox.desktop << EOF 
 
 [Desktop Action $profile1]
