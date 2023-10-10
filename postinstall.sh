@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "___________________________________________________________________________________"
 echo "                                                                                   "
-echo "                         APPLICATIONS - Remove unused apps                         "
+echo "                  APPLICATIONS - Apply Firefox global defaults                     "
 echo "___________________________________________________________________________________"
 # For current and future system users and profiles
 # Create default policies (install minimal set of extensions and theme, enable syncing of your toolbar layout, disable default Mozilla bookmarks)
@@ -61,21 +61,20 @@ echo "                                                                          
 echo "               APPLICATIONS - Install required and recommended apps                "
 echo "___________________________________________________________________________________"
 # Disable Firefox in the base image - it does not allow video playback due to lack of proprietary codecs
-rpm-ostree override remove firefox-langpacks firefox 
-# Add tools and applications by overlaying the base image
-rpm-ostree install hunspell-$LANG wireguard-tools dconf-editor gnome-tweaks gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers nextcloud-client pluma pluma-plugins
+#rpm-ostree override remove firefox-langpacks firefox 
 # Add RPM Fusion to allow for other apps to install, like AMD, INTEL or NVIDIA drivers
-rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-# Note: currently this script does not install anything from RPMFusion, but for example for Intel devices intel-media-driver would be required!
+rpm-ostree install --apply-live https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+# Add tools and applications by overlaying the base image
+rpm-ostree install hunspell-$LANG wireguard-tools dconf-editor gnome-tweaks gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed nextcloud-client
 
 # add Flathub repo and install remaining apps as flatpaks
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # Firefox and ffmpeg to ensure support for all videos
-flatpak install -y flathub org.mozilla.firefox
+##flatpak install -y flathub org.mozilla.firefox
 # Enable Firefox support for Wayland
-sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
+##sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
 # Install ffmpeg
-flatpak install -y flathub runtime/org.freedesktop.Platform.ffmpeg-full/x86_64/23.08
+##flatpak install -y flathub runtime/org.freedesktop.Platform.ffmpeg-full/x86_64/23.08
 # MPV video player
 flatpak install -y fedora app/io.mpv.Mpv/x86_64/stable
 # Bleachbit cleanup tool
@@ -151,6 +150,11 @@ echo "__________________________________"
 cp /usr/share/applications/nemo.desktop /home/asterix/.local/share/applications/
 sed -i -e 's@OnlyShowIn=X-Cinnamon;Budgie;@#OnlyShowIn=X-Cinnamon;Budgie;@g' /home/asterix/.local/share/applications/nemo.desktop
 
+# Disable Gnome Nautilus Filemanager
+sudo cp /usr/share/applications/org.gnome.Nautilus.desktop /usr/local/share/applications/
+sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.gnome.Nautilus.desktop
+sudo update-desktop-database /usr/local/share/applications/
+
 # Associate Nemo as the default filemanager
 # For root
 sudo xdg-mime default nemo.desktop inode/directory
@@ -172,19 +176,19 @@ file:///home/${USER}/Media Media
 EOF
 
 
-echo "Configure PLUMA text editor" 
-echo "___________________________"
+##echo "Configure PLUMA text editor" 
+##echo "___________________________"
 # Fix the icon
-cp /usr/share/applications/pluma.desktop /home/asterix/.local/share/applications/
-sed -i -e 's@Icon=accessories-text-editor@Icon=org.gnome.TextEditor@g' /home/asterix/.local/share/applications/nemo.desktop
+##cp /usr/share/applications/pluma.desktop /home/asterix/.local/share/applications/
+##sed -i -e 's@Icon=accessories-text-editor@Icon=org.gnome.TextEditor@g' /home/asterix/.local/share/applications/pluma.desktop
 # Associate Pluma as the default text editor
-sudo sed -i -e 's@libreoffice-writer.desktop;pluma.desktop;@pluma.desktop;libreoffice-writer.desktop;@g' /usr/share/applications/mimeinfo.cache
+##sudo sed -i -e 's@libreoffice-writer.desktop;pluma.desktop;@pluma.desktop;libreoffice-writer.desktop;@g' /usr/share/applications/mimeinfo.cache
 # For current user
-xdg-mime default pluma.desktop text/plain
-update-desktop-database ~/.local/share/applications/
+##xdg-mime default pluma.desktop text/plain
+##update-desktop-database ~/.local/share/applications/
 # For root
-sudo xdg-mime default pluma.desktop text/plain
-sudo update-desktop-database /root/.local/share/applications/
+##sudo xdg-mime default pluma.desktop text/plain
+##sudo update-desktop-database /root/.local/share/applications/
 
 
 echo "Configure ONLYOFFICE DESKTOPEDITORS" 
