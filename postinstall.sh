@@ -3,6 +3,52 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "                         APPLICATIONS - Remove unused apps                         "
 echo "___________________________________________________________________________________"
+# For current and future system users and profiles
+# Create default policies (install minimal set of extensions and theme, enable syncing of your toolbar layout, disable default Mozilla bookmarks)
+# first delete existing profiles
+rm -r $HOME/.mozilla/firefox/*.default-release
+rm -r $HOME/.mozilla/firefox/*.default
+rm $HOME/.mozilla/firefox/profiles.ini
+
+# Create a persistent, writeable /usr layer to make changes to the /usr/lib64/firefox folder, applying a policy and defaultPrefs
+sudo rpm-ostree usroverlay --hotfix
+
+# Enable default Firefox config file
+sudo tee -a /usr/lib64/firefox/defaults/pref/autoconfig.js &>/dev/null << EOF
+pref("general.config.filename", "firefox.cfg");
+pref("general.config.obscure_value", 0);
+EOF
+# Create default Firefox config file
+# -Use system default file manager - include toolbar layout in Sync - Enable bookmarks bar - set toolbar layout
+sudo tee -a /usr/lib64/firefox/firefox.cfg &>/dev/null << EOF
+// IMPORTANT: Start your code on the 2nd line
+defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
+defaultPref("media.ffmpeg.vaapi.enabled",true);
+defaultPref("media.ffvpx.enabled",false);
+defaultPref("media.navigator.mediadatadecoder_vpx_enabled",true);
+defaultPref("media.rdd-vpx.enabled",false);
+defaultPref("dom.w3c_touch_events.enabled",1);
+defaultPref("widget.use-xdg-desktop-portal.file-picker",1);
+defaultPref("widget.use-xdg-desktop-portal.mime-handler",1);
+defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
+defaultPref("browser.toolbars.bookmarks.visibility", "always");
+defaultPref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[\"screenshot-button\",\"print-button\",\"save-to-pocket-button\",\"bookmarks-menu-button\",\"library-button\",\"preferences-button\",\"panic-button\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"urlbar-container\",\"customizableui-special-spring2\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"fxa-toolbar-menu-button\",\"history-panelmenu\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"_d133e097-46d9-4ecc-9903-fa6a722a6e0e_-browser-action\",\"_contain-facebook-browser-action\",\"sponsorblocker_ajay_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"developer-button\"],\"dirtyAreaCache\":[\"nav-bar\",\"widget-overflow-fixed-list\",\"PersonalToolbar\"],\"currentVersion\":17,\"newElementCount\":3}");
+EOF
+# Create default firefox policies
+# -Cleanup bookmarks toolbar by disabling default Mozilla bookmarks - install bare minimum extensions
+sudo tee -a /usr/lib64/firefox/distribution/policies.json &>/dev/null << EOF
+{
+  "policies": {
+    "DisableProfileImport": true,
+    "NoDefaultBookmarks": true,
+    "Extensions": {
+      "Install": ["https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/bypass-paywalls-clean/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/facebook-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/google-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/nord-polar-night-theme/latest.xpi"]
+    }
+  }
+}
+EOF
+
+
 # Get language info
 echo "---------------------------------------"
 echo "Besides English, what other language would you like to spellcheck?" answer
@@ -15,7 +61,7 @@ echo "                                                                          
 echo "               APPLICATIONS - Install required and recommended apps                "
 echo "___________________________________________________________________________________"
 # Disable Firefox in the base image - it does not allow video playback due to lack of proprietary codecs
-rpm-ostree override remove firefox 
+rpm-ostree override remove firefox-langpacks firefox 
 # Add tools and applications by overlaying the base image
 rpm-ostree install hunspell-$LANG wireguard-tools dconf-editor gnome-tweaks gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers nextcloud-client pluma pluma-plugins
 # Add RPM Fusion to allow for other apps to install, like AMD, INTEL or NVIDIA drivers
@@ -26,6 +72,8 @@ rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-rele
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # Firefox and ffmpeg to ensure support for all videos
 flatpak install -y flathub org.mozilla.firefox
+# Enable Firefox support for Wayland
+sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
 # Install ffmpeg
 flatpak install -y flathub runtime/org.freedesktop.Platform.ffmpeg-full/x86_64/23.08
 # MPV video player
@@ -59,19 +107,19 @@ echo "                                                                          
 echo "           GNOME EXTENSIONS - Required for usable and intuitive system             "
 echo "___________________________________________________________________________________"
 #Install extensions that cannot be installed+autoupdated system-wide on Fedora SilverBlue  
-wget -O install-gnome-extensions.sh https://raw.githubusercontent.com/ToasterUwU/install-gnome-extensions/master/install-gnome-extensions.sh
+wget -O $HOME/Downloads/install-gnome-extensions.sh https://raw.githubusercontent.com/ToasterUwU/install-gnome-extensions/master/install-gnome-extensions.sh
 # ArcMenu (arcmenu@arcmenu.com)
-install-gnome-extensions.sh --enable 3628
+bash install-gnome-extensions.sh --enable 3628
 # Desktop Icons (gtk4-ding@smedius.gitlab.com)
-install-gnome-extensions.sh --enable 5263
+bash install-gnome-extensions.sh --enable 5263
 # Improved On Screen Keyboard (improvedosk@nick-shmyrev.dev)
-install-gnome-extensions.sh --enable 4413
+bash install-gnome-extensions.sh --enable 4413
 # Allow Locked Remote Desktop (allowlockedremotedesktop@kamens.us)
-install-gnome-extensions.sh --enable 4338
+bash install-gnome-extensions.sh --enable 4338
 # Custom Hot Corners (custom-hot-corners-extended@G-dH.github.com)
-install-gnome-extensions.sh --enable 4167
+bash install-gnome-extensions.sh --enable 4167
 # Bing Wallpaper (BingWallpaper@ineffable-gmail.com)
-install-gnome-extensions.sh --enable 1262
+bash install-gnome-extensions.sh --enable 1262
 rm install-gnome-extensions.sh 
 
 
@@ -152,53 +200,6 @@ rm /tmp/libreoffice-profile.tar.xz
 
 echo "Configure FIREFOX"
 echo "_____________________"
-# Enable Firefox support for Wayland
-sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
-# For current and future system users and profiles
-# Create default policies (install minimal set of extensions and theme, enable syncing of your toolbar layout, disable default Mozilla bookmarks)
-# first delete existing profiles
-rm -r $HOME/.mozilla/firefox/*.default-release
-rm -r $HOME/.mozilla/firefox/*.default
-rm $HOME/.mozilla/firefox/profiles.ini
-
-# Create a persistent, writeable /usr layer to make changes to the /usr/lib64/firefox folder, applying a policy and defaultPrefs
-sudo rpm-ostree usroverlay --hotfix
-
-# Enable default Firefox config file
-sudo tee -a /usr/lib64/firefox/defaults/pref/autoconfig.js &>/dev/null << EOF
-pref("general.config.filename", "firefox.cfg");
-pref("general.config.obscure_value", 0);
-EOF
-# Create default Firefox config file
-# -Use system default file manager - include toolbar layout in Sync - Enable bookmarks bar - set toolbar layout
-sudo tee -a /usr/lib64/firefox/firefox.cfg &>/dev/null << EOF
-// IMPORTANT: Start your code on the 2nd line
-defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
-defaultPref("media.ffmpeg.vaapi.enabled",true);
-defaultPref("media.ffvpx.enabled",false);
-defaultPref("media.navigator.mediadatadecoder_vpx_enabled",true);
-defaultPref("media.rdd-vpx.enabled",false);
-defaultPref("dom.w3c_touch_events.enabled",1);
-defaultPref("widget.use-xdg-desktop-portal.file-picker",1);
-defaultPref("widget.use-xdg-desktop-portal.mime-handler",1);
-defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
-defaultPref("browser.toolbars.bookmarks.visibility", "always");
-defaultPref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[\"screenshot-button\",\"print-button\",\"save-to-pocket-button\",\"bookmarks-menu-button\",\"library-button\",\"preferences-button\",\"panic-button\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"urlbar-container\",\"customizableui-special-spring2\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"fxa-toolbar-menu-button\",\"history-panelmenu\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"_d133e097-46d9-4ecc-9903-fa6a722a6e0e_-browser-action\",\"_contain-facebook-browser-action\",\"sponsorblocker_ajay_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"developer-button\"],\"dirtyAreaCache\":[\"nav-bar\",\"widget-overflow-fixed-list\",\"PersonalToolbar\"],\"currentVersion\":17,\"newElementCount\":3}");
-EOF
-# Create default firefox policies
-# -Cleanup bookmarks toolbar by disabling default Mozilla bookmarks - install bare minimum extensions
-sudo tee -a /usr/lib64/firefox/distribution/policies.json &>/dev/null << EOF
-{
-  "policies": {
-    "DisableProfileImport": true,
-    "NoDefaultBookmarks": true,
-    "Extensions": {
-      "Install": ["https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/bypass-paywalls-clean/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/facebook-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/google-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/nord-polar-night-theme/latest.xpi"]
-    }
-  }
-}
-EOF
-
 # Use your custom Firefox Sync Server by default
 echo "---------------------------------------"
 read -p "Would you like to use your own Firefox Sync Server? (y/n)" answer
