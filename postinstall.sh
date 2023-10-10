@@ -17,7 +17,7 @@ echo "__________________________________________________________________________
 # Disable Firefox in the base image - it does not allow video playback due to lack of proprietary codecs
 rpm-ostree override remove firefox 
 # Add tools and applications by overlaying the base image
-rpm-ostree install hunspell-$LANG wireguard-tools dconf-editor gnome-tweaks gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
+rpm-ostree install hunspell-$LANG wireguard-tools dconf-editor gnome-tweaks gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers nextcloud-client pluma pluma-plugins
 # Add RPM Fusion to allow for other apps to install, like AMD, INTEL or NVIDIA drivers
 rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 # Note: currently this script does not install anything from RPMFusion, but for example for Intel devices intel-media-driver would be required!
@@ -25,7 +25,9 @@ rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-rele
 # add Flathub repo and install remaining apps as flatpaks
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # Firefox and ffmpeg to ensure support for all videos
-flatpak install -y flathub org.mozilla.firefox flathub org.freedesktop.Platform.ffmpeg-full
+flatpak install -y flathub org.mozilla.firefox
+# Install ffmpeg
+flatpak install -y flathub runtime/org.freedesktop.Platform.ffmpeg-full/x86_64/23.08
 # MPV video player
 flatpak install -y fedora app/io.mpv.Mpv/x86_64/stable
 # Bleachbit cleanup tool
