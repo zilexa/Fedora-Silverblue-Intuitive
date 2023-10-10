@@ -7,7 +7,7 @@ echo "__________________________________________________________________________
 echo "---------------------------------------"
 echo "Besides English, what other language would you like to spellcheck?" answer
 echo "Please type the 2-letter countrycode for the language you would like to install, for example "de" for German language (no caps):"
-read -p 'countrycode for example "nl" and hit ENTER: ' lang
+read -p 'countrycode for example "nl" and hit ENTER: ' LANG
 
 
 echo "___________________________________________________________________________________"
@@ -17,7 +17,7 @@ echo "__________________________________________________________________________
 # Disable Firefox in the base image - it does not allow video playback due to lack of proprietary codecs
 rpm-ostree override remove firefox 
 # Add tools and applications by overlaying the base image
-rpm-ostree install hunspell-$lang wireguard-tools gnome-tweaks gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
+rpm-ostree install hunspell-$LANG wireguard-tools dconf-editor gnome-tweaks gnome-screenshot gnome-connections nemo pluma nextcloud-client gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch
 # Add RPM Fusion to allow for other apps to install, like AMD, INTEL or NVIDIA drivers
 rpm-ostree install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 # Note: currently this script does not install anything from RPMFusion, but for example for Intel devices intel-media-driver would be required!
@@ -226,14 +226,17 @@ case ${answer:0:1} in
     echo "Please enter the second Firefox profile (user) name:"
     read -p 'firefox profile 2 name (e.g. John): ' profile2
     echo adding profiles to right-click of Firefox shortcut... 
-    sudo sed -i -e 's@Actions=new-window;new-incognito-window;@Actions=new-window;$profile1;$profile2;@g' /home/asterix/.local/share/applications/firefox.desktop
-    cat >> /home/asterix/.local/share/applications/firefox.desktop << EOF
-    [Desktop Action $profile1]
-    Name=start $profile1's Firefox
-    Exec=firefox -P $profile1 -no-remote
-    [Desktop Action $profile2]
-    Name=start $profile2's Firefox
-    Exec=firefox -P $profile2 -no-remote
+    sudo sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$profile1;$profile2;@g' /home/asterix/.local/share/applications/firefox.desktop
+    cat >> /home/asterix/.local/share/applications/firefox.desktop << EOF 
+
+[Desktop Action $profile1]
+Name=start $profile1's Firefox
+Exec=firefox -P $profile1 -no-remote
+
+[Desktop Action $profile2]
+Name=start $profile2's Firefox
+Exec=firefox -P $profile2 -no-remote
+
 EOF
 
     # The shortcut in ~/.local/share/application overrides the system shortcuts in /usr/share/applications. This also removes file associations. Fix those:
