@@ -22,8 +22,13 @@ rpm-ostree override remove libavcodec-free libavfilter-free libavutil-free libav
 # Install essential applications via RPM-OSTREE, apps/tools/extensions 
 rpm-ostree install hunspell-$LANG wireguard-tools dconf-editor gnome-tweaks gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed nextcloud-client
 
-# Disable Firefox in the base image - it does not allow video playback due to lack of proprietary codecs
-#rpm-ostree override remove firefox-langpacks firefox 
+# Install Intel drivers required for hardware accelerated video *encoding* (not needed for decoding!)
+##rpm-ostree install intel-media-driver libva-utils intel-gpu-tools
+##export LIBVA_DRIVER_NAME=iHD
+# Only do this for Intel 9th Gen and higher
+## sudo nano /etc/modprobe.d/i915.conf
+##options i915 enable_guc=2 # change to 3 for 12th gen Intel CPUs and higher. 
+##options i915 enable_fbc=1
 
 # add Flathub repo and install remaining apps as flatpaks
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
