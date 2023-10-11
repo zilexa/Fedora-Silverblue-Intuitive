@@ -1,0 +1,27 @@
+/**/
+/* OPTIONAL: NOT INCLUDED IN THE POST-INSTALL.SH SCRIPT */
+/* Remove the horizontal tabbar and vertical titlebar to get a much more useful vertical tabbar. */
+/* Why? Because you have more space in width than height on a monitor. */
+/* And most websites are oriented vertically, creating lots of empty space on the sides, where your vertical tabbar will reside. */
+
+/**/
+/* HOW TO USE: */
+/* First get the vertical tabbar: Install Sidebery addon: https://addons.mozilla.org/nl/firefox/addon/sidebery/ */
+/* To remove the horizontal tabbar and the sidebar-title section, this file needs to be placed in your profile. */
+/*
+/*   STEP 1. Go to about:config and find toolkit.legacyUserProfileCustomizations.stylesheets set it to TRUE by doubleclicking it. */
+/*   STEP 2. Go to about:profiles, locate the current profile and open the root folder of your profile. */
+/*   STEP 3. Create a folder here called "chrome" */
+/*   STEP 4. Copy this file into that folder (../chrome/userChrome.css) and restart Firefox. */
+/*   STEP 5. Note now you are missing the window buttons (minimize, maximize, close window):
+/*           Right click empty-space next to the address bar and either do A or B, see which one you like. 
+             A: Select "enable Menubar".
+             B) select "Customize toolbar..", at the bottom left of this screen select "Enable Titlebar". */
+
+/* Actual file starts here */
+/**/
+/* Remove tabs bar. Note: this removes the bar, instead of hiding its contents!*/
+#TabsToolbar { visibility: collapse ! important; }
+
+/* Remove header of sidebars (when a History/Bookmarks/Sidebery sidebar is enabled)*/
+#sidebar-header { visibility: collapse !important; }
