@@ -14,12 +14,19 @@ power-saver-profile-on-low-battery=true
 sleep-inactive-ac-timeout=3600
 sleep-inactive-battery-timeout=1200
 
+[org/gnome/session]
+idle-delay=uint32 600
+
 [org/gnome/desktop/interface]
 color-scheme='prefer-dark'
 gtk-theme='Adwaita-dark'
 icon-theme='breeze-dark'
 show-battery-percentage=true
 text-scaling-factor=1.0
+
+[org/gnome/desktop/interface]
+font-hinting='slight'
+font-antialiasing='rgba'
 
 [org/gnome/desktop/wm/preferences]
 # Add minimise and maximise to app windows
