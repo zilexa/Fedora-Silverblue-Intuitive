@@ -33,6 +33,8 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 ##sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
 # Install ffmpeg
 ##flatpak install -y flathub runtime/org.freedesktop.Platform.ffmpeg-full/x86_64/23.08
+# Remove Gnome Text Editor
+flatpak uninstall -y org.gnome.TextEditor
 # MPV video player
 flatpak install -y fedora app/io.mpv.Mpv/x86_64/stable
 # Bleachbit cleanup tool
@@ -104,14 +106,14 @@ echo "                             APPLICATIONS - configure apps                
 echo "___________________________________________________________________________________"
 echo "Configure NEMO file manager"
 echo "__________________________________"
-# Fix the shortcut
-sudo mkdir -p /usr/local/share/applications/
-sudo cp /usr/share/applications/nemo.desktop /usr/local/share/applications/
-sed -i -e 's@OnlyShowIn=X-Cinnamon;Budgie;@#OnlyShowIn=X-Cinnamon;Budgie;@g' /usr/local/share/applications/nemo.desktop
-
 # Disable Gnome Nautilus Filemanager
 sudo cp /usr/share/applications/org.gnome.Nautilus.desktop /usr/local/share/applications/
 sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.gnome.Nautilus.desktop
+# Fix Nemo shortcut from not showing up in Gnome
+sudo mkdir -p /usr/local/share/applications/
+sudo cp /usr/share/applications/nemo.desktop /usr/local/share/applications/
+sudo sed -i -e 's@OnlyShowIn=X-Cinnamon;Budgie;@#OnlyShowIn=X-Cinnamon;Budgie;@g' /usr/local/share/applications/nemo.desktop
+# Update shortcuts database
 sudo update-desktop-database /usr/local/share/applications/
 
 # Associate Nemo as the default filemanager
@@ -121,7 +123,7 @@ sudo xdg-mime default nemo.desktop inode/directory
 xdg-mime default nemo.desktop inode/directory
 xdg-mime default nemo.desktop x-directory/normal
 xdg-mime default nemo-autorun-software.desktop x-content/unix-software
-update-desktop-database /usr/local/share/applications/
+sudo update-desktop-database /usr/local/share/applications/
 
 # Set Nemo bookmarks, reflecting folder that will be renamed later (Videos>Media)
 truncate -s 0 $HOME/.config/gtk-3.0/bookmarks
@@ -132,21 +134,6 @@ file:///home/${USER}/Music Music
 file:///home/${USER}/Pictures Pictures
 file:///home/${USER}/Media Media
 EOF
-
-
-##echo "Configure PLUMA text editor" 
-##echo "___________________________"
-# Fix the icon
-##cp /usr/share/applications/pluma.desktop /home/asterix/.local/share/applications/
-##sed -i -e 's@Icon=accessories-text-editor@Icon=org.gnome.TextEditor@g' /home/asterix/.local/share/applications/pluma.desktop
-# Associate Pluma as the default text editor
-##sudo sed -i -e 's@libreoffice-writer.desktop;pluma.desktop;@pluma.desktop;libreoffice-writer.desktop;@g' /usr/share/applications/mimeinfo.cache
-# For current user
-##xdg-mime default pluma.desktop text/plain
-##update-desktop-database ~/.local/share/applications/
-# For root
-##sudo xdg-mime default pluma.desktop text/plain
-##sudo update-desktop-database /root/.local/share/applications/
 
 
 echo "Configure ONLYOFFICE DESKTOPEDITORS" 
@@ -177,6 +164,23 @@ rm -r $HOME/.mozilla/firefox/*.default-release
 rm -r $HOME/.mozilla/firefox/*.default
 rm $HOME/.mozilla/firefox/profiles.ini
 
+# Create default firefox policies
+# -Cleanup bookmarks toolbar by disabling default Mozilla bookmarks - install bare minimum extensions
+sudo mkdir -p /etc/firefox/policies
+sudo tee -a /etc/firefox/policies/policies.json &>/dev/null << EOF
+{
+  "policies": {
+    "DisableProfileImport": true,
+    "NoDefaultBookmarks": true,
+    "Extensions": {
+      "Install": ["https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/bypass-paywalls-clean/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/facebook-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/google-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/nord-polar-night-theme/latest.xpi"]
+    }
+  }
+}
+EOF
+
+#  !!! BELOW DOES NOT WORK UNTIL MOZILLA SUPPORTS TO HAVE THESE FILES IN /ETC INSTEAD OF /USR/LIB64/ !!!
+
 # Enable default Firefox config file
 sudo tee -a /etc/firefox/pref/autoconfig.js &>/dev/null << EOF
 pref("general.config.filename", "firefox.cfg");
@@ -200,22 +204,6 @@ defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
 defaultPref("browser.toolbars.bookmarks.visibility", "always");
 defaultPref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[\"screenshot-button\",\"print-button\",\"save-to-pocket-button\",\"bookmarks-menu-button\",\"library-button\",\"preferences-button\",\"panic-button\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"urlbar-container\",\"customizableui-special-spring2\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"fxa-toolbar-menu-button\",\"history-panelmenu\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"_d133e097-46d9-4ecc-9903-fa6a722a6e0e_-browser-action\",\"_contain-facebook-browser-action\",\"sponsorblocker_ajay_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"developer-button\"],\"dirtyAreaCache\":[\"nav-bar\",\"widget-overflow-fixed-list\",\"PersonalToolbar\"],\"currentVersion\":17,\"newElementCount\":3}");
 EOF
-# Create default firefox policies
-# -Cleanup bookmarks toolbar by disabling default Mozilla bookmarks - install bare minimum extensions
-sudo mkdir -p /etc/firefox/policies
-sudo tee -a /etc/firefox/policies/policies.json &>/dev/null << EOF
-{
-  "policies": {
-    "DisableProfileImport": true,
-    "NoDefaultBookmarks": true,
-    "Extensions": {
-      "Install": ["https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/bypass-paywalls-clean/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/facebook-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/google-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/nord-polar-night-theme/latest.xpi"]
-    }
-  }
-}
-EOF
-
-
 # Use your custom Firefox Sync Server by default
 echo "---------------------------------------"
 read -p "Would you like to use your own Firefox Sync Server? (y/n)" answer
