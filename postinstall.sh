@@ -96,7 +96,7 @@ user-db:user
 system-db:local
 EOF
 # Download the Gnome Intuitive configuration and apply
-sudo wget --no-check-certificate -P /etc/dconf/db/local.d https://raw.githubusercontent.com/zilexa/Fedora-Silverblue-intuitive-postinstall/master/00-gnome-intuitive
+sudo wget --no-check-certificate -P /etc/dconf/db/local.d https://raw.githubusercontent.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/main/00-gnome-intuitive
 sudo dconf update
 
 
