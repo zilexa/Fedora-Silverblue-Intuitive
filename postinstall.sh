@@ -40,7 +40,7 @@ flatpak install -y fedora app/io.mpv.Mpv/x86_64/stable
 # Bleachbit cleanup tool
 flatpak install -y flathub org.bleachbit.BleachBit
 # Music editor tool
-flatpak install -y flathub org.audacityteam.Audacity
+flatpak install -y flathub org.tenacityaudio.Tenacity
 # Image editor tool
 flatpak install -y flathub com.github.PintaProject.Pinta
 # GIMP advanced image editor
