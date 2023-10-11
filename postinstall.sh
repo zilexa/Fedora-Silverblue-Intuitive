@@ -150,9 +150,10 @@ echo "Configure LIBREOFFICE"
 echo "_____________________"
 #LibreOffice profile enabling tabbed view, Office-like dark mode icons, Calibri default font and Office365 filetype by default and uto-save every 2min"
 cd /tmp
-wget -O /tmp/libreoffice-profile.tar.xz "https://github.com/zilexa/manjaro-gnome-post-install/raw/main/files/libreoffice-profile.tar.xz"
+wget -O /tmp/libreoffice-profile.tar.xz "https://github.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/raw/main/libreoffice-profile.tar.xz"
 tar -xvf /tmp/libreoffice-profile.tar.xz -C $HOME/.config
 rm /tmp/libreoffice-profile.tar.xz
+
 
 
 echo "Configure FIREFOX"
