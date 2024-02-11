@@ -76,8 +76,8 @@ wget -O $HOME/Downloads/install-gnome-extensions.sh https://raw.githubuserconten
 bash install-gnome-extensions.sh --enable 3628
 # Desktop Icons (gtk4-ding@smedius.gitlab.com)
 bash install-gnome-extensions.sh --enable 5263
-# Improved On Screen Keyboard (improvedosk@nick-shmyrev.dev)
-bash install-gnome-extensions.sh --enable 4413
+# Enhanced On Screen Keyboard (enhancedosk@cass00.github.io)
+bash install-gnome-extensions.sh --enable 6595
 # Allow Locked Remote Desktop (allowlockedremotedesktop@kamens.us)
 bash install-gnome-extensions.sh --enable 4338
 # Custom Hot Corners (custom-hot-corners-extended@G-dH.github.com)
