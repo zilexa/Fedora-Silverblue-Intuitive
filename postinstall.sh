@@ -1,4 +1,3 @@
-#!/bin/bash
 echo "___________________________________________________________________________________"
 echo "                                                                                   "
 echo "                           GET LANGUAGE INFO FROM USER                             "
@@ -15,31 +14,23 @@ echo "                                                                          
 echo "               APPLICATIONS - Install required and recommended apps                "
 echo "___________________________________________________________________________________"
 # Add RPM Fusion to allow for other apps to install, like AMD, INTEL or NVIDIA drivers
-rpm-ostree install --apply-live https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+#rpm-ostree install --apply-live https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 # Override the default codecs with the non-free codecs for full video playback support in all applications + ffmpeg support
-rpm-ostree override remove libavcodec-free libavfilter-free libavutil-free libavformat-free libswscale-free libswresample-free libpostproc-free --install ffmpeg --install libavcodec-freeworld
+#rpm-ostree override remove libavcodec-free libavfilter-free libavutil-free libavformat-free libswscale-free libswresample-free libpostproc-free --install ffmpeg --install libavcodec-freeworld
 
 # Install essential applications via RPM-OSTREE, apps/tools/extensions 
-rpm-ostree install hunspell-$LANG wireguard-tools dconf-editor gnome-tweaks gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel.noarch gnome-shell-extension-appindicator.noarch gnome-shell-extension-drive-menu.noarch nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed nextcloud-client
-
-# Install Intel drivers required for hardware accelerated video *encoding* (not needed for decoding!)
-##rpm-ostree install intel-media-driver libva-utils intel-gpu-tools
-##export LIBVA_DRIVER_NAME=iHD
-# Only do this for Intel 9th Gen and higher
-## sudo nano /etc/modprobe.d/i915.conf
-##options i915 enable_guc=2 # change to 3 for 12th gen Intel CPUs and higher. 
-##options i915 enable_fbc=1
+rpm-ostree install hunspell-$LANG dconf-editor gnome-tweaks gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel gnome-shell-extension-appindicator gnome-shell-extension-drive-menu nome-shell-extension-blur-my-shell nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed nextcloud-client
 
 # add Flathub repo and install remaining apps as flatpaks
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+##flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 # Firefox and ffmpeg to ensure support for all videos
 ##flatpak install -y flathub org.mozilla.firefox
 # Enable Firefox support for Wayland
 ##sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
-# Install ffmpeg
-##flatpak install -y flathub runtime/org.freedesktop.Platform.ffmpeg-full/x86_64/23.08
 # Remove Gnome Text Editor
 flatpak uninstall -y org.gnome.TextEditor
+# Ensure ffmpeg-full is available for all Flatpak applications
+flatpak install -y flathub runtime/org.freedesktop.Platform.ffmpeg-full/x86_64/23.08
 # MPV video player
 flatpak install -y fedora app/io.mpv.Mpv/x86_64/stable
 # Bleachbit cleanup tool
@@ -144,20 +135,20 @@ EOF
 echo "Configure ONLYOFFICE DESKTOPEDITORS" 
 echo "____________________"
 # Enable dark mode, use separate windows instead of tabs
-mkdir -p $HOME/.config/onlyoffice
-tee -a $HOME/.config/onlyoffice/DesktopEditors.conf &>/dev/null << EOF
-UITheme=theme-dark
-editorWindowMode=true
-EOF
+##mkdir -p $HOME/.config/onlyoffice
+##tee -a $HOME/.config/onlyoffice/DesktopEditors.conf &>/dev/null << EOF
+##UITheme=theme-dark
+##editorWindowMode=true
+##EOF
 
 
 echo "Configure LIBREOFFICE"
 echo "_____________________"
 #LibreOffice profile enabling tabbed view, Office-like dark mode icons, Calibri default font and Office365 filetype by default and uto-save every 2min"
-cd /tmp
-wget -O /tmp/libreoffice-profile.tar.xz "https://github.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/raw/main/libreoffice-profile.tar.xz"
-tar -xvf /tmp/libreoffice-profile.tar.xz -C $HOME/.config
-rm /tmp/libreoffice-profile.tar.xz
+##cd /tmp
+##wget -O /tmp/libreoffice-profile.tar.xz "https://github.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/raw/main/libreoffice-profile.tar.xz"
+##tar -xvf /tmp/libreoffice-profile.tar.xz -C $HOME/.config
+##rm /tmp/libreoffice-profile.tar.xz
 
 
 
