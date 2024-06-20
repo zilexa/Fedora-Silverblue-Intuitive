@@ -1,6 +1,7 @@
 [org/gnome/shell]
 # Extensions
-enabled-extensions=['gnome-ui-tune@itstime.tech', 'ding@rastersoft.com', 'appindicatorsupport@rgcjonas.gmail.com', 'dash-to-panel@jderose9.github.com', 'arcmenu@arcmenu.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'custom-hot-corners-extended@G-dH.github.com', 'gestureImprovements@gestures', 'BingWallpaper@ineffable-gmail.com', 'allowlockedremotedesktop@kamens.us', 'improvedosk@nick-shmyrev.dev', 'blur-my-shell@aunetx', 'gtk4-ding@smedius.gitlab.com']
+enabled-extensions=['gnome-ui-tune@itstime.tech', 'appindicatorsupport@rgcjonas.gmail.com', 'dash-to-panel@jderose9.github.com', 'arcmenu@arcmenu.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'custom-hot-corners-extended@G-dH.github.com', 'BingWallpaper@ineffable-gmail.com', 'allowlockedremotedesktop@kamens.us', 'blur-my-shell@aunetx', 'gtk4-ding@smedius.gitlab.com']
+
 # Dash (Dash-to-Panel) pinned apps
 favorite-apps=['nemo.desktop', 'firefox.desktop', 'org.onlyoffice.desktopeditors.desktop', 'xed.desktop', 'org.gnome.Calculator.desktop']
 # Use power-saver (quiet & cool laptop/pc)
