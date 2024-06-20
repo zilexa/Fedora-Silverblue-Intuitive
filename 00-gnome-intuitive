@@ -6,6 +6,9 @@ favorite-apps=['nemo.desktop', 'firefox.desktop', 'org.onlyoffice.desktopeditors
 # Use power-saver (quiet & cool laptop/pc)
 last-selected-power-profile='power-saver'
 
+[org/gnome/mutter]
+experimental-features=['scale-monitor-framebuffer']
+
 [org/gnome/settings-daemon/plugins/power]
 ambient-enabled=true
 idle-dim=true
@@ -81,13 +84,9 @@ bracket-matching=true
 auto-indent=true
 
 # Extension: Desktop Icons
-#[org/gnome/shell/extensions/ding]
-#show-home=false
-#show-network-volumes=false
-#start-corner='bottom-left'
-#use-nemo=true
-#sort-special-folders=true
-#keep-arranged=true
+#[org/gnome/shell/extensions/gtk4-ding]
+show-home=false
+start-corner='bottom-left'
 
 # Extension: Arcmenu pinned apps
 [org/gnome/shell/extensions/arcmenu]
@@ -149,6 +148,7 @@ ctrl=true
 # Extension: Bing wallpaper
 [org/gnome/shell/extensions/bingwallpaper]
 download-folder='~/Pictures/Wallpapers'
+override-lockscreen-blur=true
 
 # Screenshots: save to subfolder of Pictures
 [org/gnome/gnome-screenshot]
