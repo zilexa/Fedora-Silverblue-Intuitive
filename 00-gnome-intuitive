@@ -32,6 +32,12 @@ font-antialiasing='rgba'
 # Add minimise and maximise to app windows
 button-layout='appmenu:minimize,maximize,close'
 
+# Let Nemo instead of Nautilus handle desktop icons
+[org.gnome.desktop.background]
+show-desktop-icons=false
+[org.nemo.desktop] 
+show-desktop-icons=true
+
 [org/gnome/desktop/calendar]
 show-weekdate=true
 
