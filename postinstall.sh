@@ -19,7 +19,7 @@ echo "__________________________________________________________________________
 #rpm-ostree override remove libavcodec-free libavfilter-free libavutil-free libavformat-free libswscale-free libswresample-free libpostproc-free --install ffmpeg --install libavcodec-freeworld
 
 # Install essential applications via RPM-OSTREE, apps/tools/extensions 
-rpm-ostree install hunspell-$LANG dconf-editor gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel gnome-shell-extension-appindicator gnome-shell-extension-drive-menu gnome-shell-extension-blur-my-shell nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed
+rpm-ostree install --apply-live hunspell-$LANG dconf-editor gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel gnome-shell-extension-appindicator gnome-shell-extension-drive-menu gnome-shell-extension-blur-my-shell nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed
 
 # add Flathub repo and install remaining apps as flatpaks
 ##flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -91,7 +91,6 @@ system-db:local
 EOF
 # Download the Gnome Intuitive configuration and apply
 sudo wget --no-check-certificate -P /etc/dconf/db/local.d https://raw.githubusercontent.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/main/00-gnome-intuitive
-dconf update
 sudo dconf update
 
 
@@ -101,11 +100,12 @@ echo "                             APPLICATIONS - configure apps                
 echo "___________________________________________________________________________________"
 echo "Configure NEMO file manager"
 echo "__________________________________"
+# Create the folder for user-space application shortcuts
+sudo mkdir -p /usr/local/share/applications/
 # Disable Gnome Nautilus Filemanager
 sudo cp /usr/share/applications/org.gnome.Nautilus.desktop /usr/local/share/applications/
 sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.gnome.Nautilus.desktop
 # Fix Nemo shortcut from not showing up in Gnome
-sudo mkdir -p /usr/local/share/applications/
 sudo cp /usr/share/applications/nemo.desktop /usr/local/share/applications/
 sudo sed -i -e 's@OnlyShowIn=X-Cinnamon;Budgie;@#OnlyShowIn=X-Cinnamon;Budgie;@g' /usr/local/share/applications/nemo.desktop
 # Update shortcuts database
@@ -216,13 +216,13 @@ echo "Firefox: would you like to be able to launch different profiles (2), by si
 read -p "Only useful if multiple users use this machine and each user has its own Firefox profile. (y/n)?" answer
 case ${answer:0:1} in
     y|Y )
-    sudo cp /usr/share/applications/firefox.desktop /usr/local/share/applications/
+    sudo cp /usr/share/applications/org.mozilla.firefox.desktop /usr/local/share/applications/
     echo "Please enter the first Firefox profile (user) name:"
     read -p 'firefox profile 1 name (e.g. Lisa): ' PROFILE1
     echo "Please enter the second Firefox profile (user) name:"
     read -p 'firefox profile 2 name (e.g. John): ' PROFILE2
     echo adding profiles to right-click of Firefox shortcut... 
-    sudo sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$PROFILE1;$PROFILE2;@g' /usr/local/share/applications/firefox.desktop
+    sudo sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$PROFILE1;$PROFILE2;@g' /usr/local/share/applications/org.mozilla.firefox.desktop
     sudo tee -a /usr/local/share/applications/org.mozilla.firefox.desktop &>/dev/null << EOF 
 [Desktop Action $PROFILE1]
 Name=start $profile1's Firefox
