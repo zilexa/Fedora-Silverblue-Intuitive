@@ -10,7 +10,7 @@
 3. Run the Fedora Silverblue Intuitive script to configure the OS, install & configure common apps
     - Download and run it:
         - `cd Downloads` 
-        - `wget -O - https://raw.githubusercontent.com/zilexa/Fedora-Silverblue-Intuitive/main/postinstall.sh`
+        - `wget https://raw.githubusercontent.com/zilexa/Fedora-Silverblue-Intuitive/main/postinstall.sh`
         - `bash postinstall.sh`
     - Follow the instructions at the beginning and end. Have some patience. 
     - Reboot when done. 
