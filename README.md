@@ -1,6 +1,6 @@
 1. Install Fedora Silverblue
     - Download the Fedora Media Writer and use it to prep your USB boot stick (use a fast min. 32GB one).
-    - Shutdown your system, reboot, hit the bootmenu key (F9, F10 usually) and select the USB stick. Install Fedora Silverblue.
+    - Shutdown, turn on, hit bootmenu key (usually F9 or F10), select the USB stick. Install Fedora Silverblue.
     - Reboot, finish wizard. 
 2. Rebase to vanilla uBlue OS
     - Open Terminal (CTRL+T) and rebase with this command:  \
