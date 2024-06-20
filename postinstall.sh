@@ -19,7 +19,7 @@ echo "__________________________________________________________________________
 #rpm-ostree override remove libavcodec-free libavfilter-free libavutil-free libavformat-free libswscale-free libswresample-free libpostproc-free --install ffmpeg --install libavcodec-freeworld
 
 # Install essential applications via RPM-OSTREE, apps/tools/extensions 
-rpm-ostree install hunspell-$LANG dconf-editor gnome-tweaks gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel gnome-shell-extension-appindicator gnome-shell-extension-drive-menu nome-shell-extension-blur-my-shell nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed nextcloud-client
+rpm-ostree install hunspell-$LANG dconf-editor gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel gnome-shell-extension-appindicator gnome-shell-extension-drive-menu gnome-shell-extension-blur-my-shell nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed
 
 # add Flathub repo and install remaining apps as flatpaks
 ##flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -67,8 +67,6 @@ wget -O $HOME/Downloads/install-gnome-extensions.sh https://raw.githubuserconten
 bash install-gnome-extensions.sh --enable 3628
 # Desktop Icons (gtk4-ding@smedius.gitlab.com)
 bash install-gnome-extensions.sh --enable 5263
-# Enhanced On Screen Keyboard (enhancedosk@cass00.github.io)
-bash install-gnome-extensions.sh --enable 6595
 # Allow Locked Remote Desktop (allowlockedremotedesktop@kamens.us)
 bash install-gnome-extensions.sh --enable 4338
 # Custom Hot Corners (custom-hot-corners-extended@G-dH.github.com)
@@ -93,6 +91,7 @@ system-db:local
 EOF
 # Download the Gnome Intuitive configuration and apply
 sudo wget --no-check-certificate -P /etc/dconf/db/local.d https://raw.githubusercontent.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/main/00-gnome-intuitive
+dconf update
 sudo dconf update
 
 
@@ -113,8 +112,6 @@ sudo sed -i -e 's@OnlyShowIn=X-Cinnamon;Budgie;@#OnlyShowIn=X-Cinnamon;Budgie;@g
 sudo update-desktop-database /usr/local/share/applications/
 
 # Associate Nemo as the default filemanager
-# For root
-sudo xdg-mime default nemo.desktop inode/directory
 # For current user
 xdg-mime default nemo.desktop inode/directory
 xdg-mime default nemo.desktop x-directory/normal
@@ -189,14 +186,8 @@ sudo cp /etc/firefox/pref/autoconfig.js /etc/firefox/defaults/pref/
 # -Use system default file manager - include toolbar layout in Sync - Enable bookmarks bar - set toolbar layout
 sudo tee -a /etc/firefox/firefox.cfg &>/dev/null << EOF
 // IMPORTANT: Start your code on the 2nd line
-defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
 defaultPref("media.ffmpeg.vaapi.enabled",true);
-defaultPref("media.ffvpx.enabled",false);
 defaultPref("media.navigator.mediadatadecoder_vpx_enabled",true);
-defaultPref("media.rdd-vpx.enabled",false);
-defaultPref("dom.w3c_touch_events.enabled",1);
-defaultPref("widget.use-xdg-desktop-portal.file-picker",1);
-defaultPref("widget.use-xdg-desktop-portal.mime-handler",1);
 defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
 defaultPref("browser.toolbars.bookmarks.visibility", "always");
 defaultPref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[\"screenshot-button\",\"print-button\",\"save-to-pocket-button\",\"bookmarks-menu-button\",\"library-button\",\"preferences-button\",\"panic-button\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"urlbar-container\",\"customizableui-special-spring2\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"fxa-toolbar-menu-button\",\"history-panelmenu\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"_d133e097-46d9-4ecc-9903-fa6a722a6e0e_-browser-action\",\"_contain-facebook-browser-action\",\"sponsorblocker_ajay_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"developer-button\"],\"dirtyAreaCache\":[\"nav-bar\",\"widget-overflow-fixed-list\",\"PersonalToolbar\"],\"currentVersion\":17,\"newElementCount\":3}");
@@ -231,8 +222,7 @@ case ${answer:0:1} in
     read -p 'firefox profile 2 name (e.g. John): ' PROFILE2
     echo adding profiles to right-click of Firefox shortcut... 
     sudo sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$PROFILE1;$PROFILE2;@g' /usr/local/share/applications/firefox.desktop
-    sudo cat >> /usr/local/share/applications/firefox.desktop << EOF 
-
+    sudo tee -a /usr/local/share/applications/org.mozilla.firefox.desktop &>/dev/null << EOF 
 [Desktop Action $PROFILE1]
 Name=start $profile1's Firefox
 Exec=firefox -P $PROFILE1 -no-remote
