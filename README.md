@@ -12,6 +12,6 @@
         `cd Downloads` \
         `wget -O - https://raw.githubusercontent.com/zilexa/Fedora-Silverblue-Intuitive/main/postinstall.sh` \
         `bash postinstall.sh`
-    - When asked, enter user account password to allow configuration to continue.
+    - Follow the instructions at the beginning and end. Have some patience. 
     - Reboot when done. 
   
