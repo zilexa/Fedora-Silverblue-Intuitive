@@ -114,6 +114,7 @@ sudo update-desktop-database /usr/local/share/applications/
 # Associate Nemo as the default filemanager
 # For current user
 xdg-mime default nemo.desktop inode/directory
+xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
 xdg-mime default nemo.desktop x-directory/normal
 xdg-mime default nemo-autorun-software.desktop x-content/unix-software
 sudo update-desktop-database /usr/local/share/applications/
