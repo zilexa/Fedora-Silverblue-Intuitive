@@ -89,7 +89,7 @@ pinned-app-list=['Files', '', 'nemo.desktop', 'Firefox', '', 'firefox.desktop', 
 # Arcmenu config
 [org/gnome/shell/extensions/arcmenu]
 alphabetize-all-programs=true
-application-shortcuts-list=[['Software', 'org.gnome.Software', 'ArcMenu_Software'], ['Settings', 'org.gnome.Settings', 'org.gnome.Settings.desktop'], ['Tweaks', 'org.gnome.tweaks', 'org.gnome.tweaks.desktop'], ['Extension Manager', 'com.mattjakeman.ExtensionManager', 'com.mattjakeman.ExtensionManager.desktop'], ['Terminal', 'org.gnome.Terminal', 'org.gnome.Terminal.desktop']]
+application-shortcuts-list=[['Software', 'org.gnome.Software', 'ArcMenu_Software'], ['Settings', 'org.gnome.Settings', 'org.gnome.Settings.desktop'], ['Tweaks', 'org.gnome.tweaks', 'org.gnome.tweaks.desktop'], ['Extensions', 'com.mattjakeman.ExtensionManager', 'com.mattjakeman.ExtensionManager.desktop'], ['Terminal', 'org.gnome.Terminal', 'org.gnome.Terminal.desktop']]
 default-menu-view-redmond='Pinned_Apps'
 disable-user-avatar=true
 enable-horizontal-flip=true
