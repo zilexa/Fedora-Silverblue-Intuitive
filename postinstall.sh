@@ -19,7 +19,7 @@ echo "__________________________________________________________________________
 #rpm-ostree override remove libavcodec-free libavfilter-free libavutil-free libavformat-free libswscale-free libswresample-free libpostproc-free --install ffmpeg --install libavcodec-freeworld
 
 # Install essential applications via RPM-OSTREE, apps/tools/extensions 
-rpm-ostree install --apply-live hunspell-$LANG dconf-editor gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel gnome-shell-extension-appindicator gnome-shell-extension-drive-menu gnome-shell-extension-blur-my-shell nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed
+rpm-ostree install --apply-live --assumeyes hunspell-$LANG dconf-editor gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel gnome-shell-extension-appindicator gnome-shell-extension-drive-menu gnome-shell-extension-blur-my-shell nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed
 
 # add Flathub repo and install remaining apps as flatpaks
 ##flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
