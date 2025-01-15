@@ -120,21 +120,21 @@ echo "__________________________________"
 echo "Configure ONLYOFFICE DESKTOPEDITORS" 
 echo "____________________"
 # Enable dark mode, use separate windows instead of tabs
-##mkdir -p $HOME/.config/onlyoffice
-##tee -a $HOME/.config/onlyoffice/DesktopEditors.conf &>/dev/null << EOF
-##UITheme=theme-dark
-##editorWindowMode=true
-##EOF
+mkdir -p $HOME/.config/onlyoffice
+tee -a $HOME/.config/onlyoffice/DesktopEditors.conf &>/dev/null << EOF
+UITheme=theme-dark
+editorWindowMode=true
+EOF
 
 
 echo "Configure LIBREOFFICE"
 echo "_____________________"
-#LibreOffice profile enabling tabbed view, Office-like dark mode icons, Calibri default font and Office365 filetype by default and uto-save every 2min"
-##cd /tmp
-##wget -O /tmp/libreoffice-profile.tar.xz "https://github.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/raw/main/libreoffice-profile.tar.xz"
-##tar -xvf /tmp/libreoffice-profile.tar.xz -C $HOME/.config
-##rm /tmp/libreoffice-profile.tar.xz
-
+# Adjust the LibreOffice settings to make it look like MS Office: icons: Colibre, ribbon view. Also enable LanguageTools modern spell and grammar checker, save every 5min etc. 
+cd $HOME/Downloads
+wget -O $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz "https://github.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/raw/main/libreoffice-configure-to-look-like-Office365.tar.xz"
+mkdir -p $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
+tar -xvf $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz -C $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
+rm $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz
 
 
 echo "Configure FIREFOX"
