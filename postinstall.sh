@@ -8,49 +8,30 @@ echo "Besides English, what other language would you like to spellcheck?" answer
 echo "Please type the 2-letter countrycode for the language you would like to install, for example "de" for German language (no caps):"
 read -p 'countrycode for example "nl" and hit ENTER: ' LANG
 
+flatpak config --system --set languages "en;$LANG"
+flatpak update -y
 
 echo "___________________________________________________________________________________"
 echo "                                                                                   "
 echo "               APPLICATIONS - Install required and recommended apps                "
 echo "___________________________________________________________________________________"
-# Add RPM Fusion to allow for other apps to install, like AMD, INTEL or NVIDIA drivers
-#rpm-ostree install --apply-live https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-# Override the default codecs with the non-free codecs for full video playback support in all applications + ffmpeg support
-#rpm-ostree override remove libavcodec-free libavfilter-free libavutil-free libavformat-free libswscale-free libswresample-free libpostproc-free --install ffmpeg --install libavcodec-freeworld
+# Install applications/tools not available via Flatpak - currently this is only Nemo Filemanager. Let's give the built-in Gnome filemanager another shot. 
+##rpm-ostree install --apply-live --assumeyes nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers
 
-# Install essential applications via RPM-OSTREE, apps/tools/extensions 
-rpm-ostree install --apply-live --assumeyes hunspell-$LANG dconf-editor gnome-screenshot gnome-connections gnome-shell-extension-dash-to-panel gnome-shell-extension-appindicator gnome-shell-extension-drive-menu gnome-shell-extension-blur-my-shell nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers xed
-
-# add Flathub repo and install remaining apps as flatpaks
-##flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-# Firefox and ffmpeg to ensure support for all videos
-##flatpak install -y flathub org.mozilla.firefox
-# Enable Firefox support for Wayland
-##sudo flatpak override --socket=wayland --env=MOZ_ENABLE_WAYLAND=1 org.mozilla.firefox
-# Remove Gnome Text Editor
+# Install applications/tools via the proper method (Flatpak)
+# Remove Gnome Text Editor, install a less 'naked' simple texteditor instead
 flatpak uninstall -y org.gnome.TextEditor
-# Ensure ffmpeg-full is available for all Flatpak applications
-flatpak install -y flathub runtime/org.freedesktop.Platform.ffmpeg-full/x86_64/23.08
-# MPV video player
-flatpak install -y fedora app/io.mpv.Mpv/x86_64/stable
-# Bleachbit cleanup tool
-flatpak install -y flathub org.bleachbit.BleachBit
+flatpak -y install flathub mousepad
 # Music editor tool
-flatpak install -y flathub org.tenacityaudio.Tenacity
+flatpak install -y flathub org.audacityteam.Audacity
 # Image editor tool
 flatpak install -y flathub com.github.PintaProject.Pinta
 # GIMP advanced image editor
 flatpak install -y fedora org.gimp.GIMP  
-# Photo management tool
-flatpak install -y flathub org.kde.digikam
 # Video converter
 flatpak install -y flathub app/fr.handbrake.ghb/x86_64/stable
-# Video trimmer
-flatpak install -y flathub app/no.mifi.losslesscut/x86_64/stable
-# Video editor
-flatpak install -y flathub app/org.shotcut.Shotcut/x86_64/stable
-# Gnome Extension Manager
-flatpak install -y flathub com.mattjakeman.ExtensionManager
+# Video trimmer, converter, merger
+flatpak install -y flathub losslesscut
 # OnlyOffice
 flatpak install -y flathub org.onlyoffice.desktopeditors
 # LibreOffice
@@ -63,6 +44,10 @@ echo "           GNOME EXTENSIONS - Required for usable and intuitive system    
 echo "___________________________________________________________________________________"
 #Install extensions that cannot be installed+autoupdated system-wide on Fedora SilverBlue  
 wget -O $HOME/Downloads/install-gnome-extensions.sh https://raw.githubusercontent.com/ToasterUwU/install-gnome-extensions/master/install-gnome-extensions.sh
+# Dash-to-Panel (dash-to-panel@jderose9.github.com)
+bash install-gnome-extensions.sh --enable 1160
+# Removable Drive menu (drive-menu@gnome-shell-extensions.gcampax.github.com)
+bash install-gnome-extensions.sh --enable 7
 # ArcMenu (arcmenu@arcmenu.com)
 bash install-gnome-extensions.sh --enable 3628
 # Desktop Icons (gtk4-ding@smedius.gitlab.com)
@@ -72,8 +57,10 @@ bash install-gnome-extensions.sh --enable 4338
 # Custom Hot Corners (custom-hot-corners-extended@G-dH.github.com)
 bash install-gnome-extensions.sh --enable 4167
 # Bing Wallpaper (BingWallpaper@ineffable-gmail.com)
-bash install-gnome-extensions.sh --enable 1262
 mkdir $HOME/Pictures/Wallpapers
+bash install-gnome-extensions.sh --enable 1262
+
+#remove the script used to install extensions. 
 rm install-gnome-extensions.sh 
 
 
@@ -101,33 +88,33 @@ echo "__________________________________________________________________________
 echo "Configure NEMO file manager"
 echo "__________________________________"
 # Create the folder for user-space application shortcuts
-sudo mkdir -p /usr/local/share/applications/
+##sudo mkdir -p /usr/local/share/applications/
 # Disable Gnome Nautilus Filemanager
-sudo cp /usr/share/applications/org.gnome.Nautilus.desktop /usr/local/share/applications/
-sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.gnome.Nautilus.desktop
+##sudo cp /usr/share/applications/org.gnome.Nautilus.desktop /usr/local/share/applications/
+##sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.gnome.Nautilus.desktop
 # Fix Nemo shortcut from not showing up in Gnome
-sudo cp /usr/share/applications/nemo.desktop /usr/local/share/applications/
-sudo sed -i -e 's@OnlyShowIn=X-Cinnamon;Budgie;@#OnlyShowIn=X-Cinnamon;Budgie;@g' /usr/local/share/applications/nemo.desktop
+##sudo cp /usr/share/applications/nemo.desktop /usr/local/share/applications/
+##sudo sed -i -e 's@OnlyShowIn=X-Cinnamon;Budgie;@#OnlyShowIn=X-Cinnamon;Budgie;@g' /usr/local/share/applications/nemo.desktop
 # Update shortcuts database
-sudo update-desktop-database /usr/local/share/applications/
+##sudo update-desktop-database /usr/local/share/applications/
 
 # Associate Nemo as the default filemanager
 # For current user
-xdg-mime default nemo.desktop inode/directory
-xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
-xdg-mime default nemo.desktop x-directory/normal
-xdg-mime default nemo-autorun-software.desktop x-content/unix-software
-sudo update-desktop-database /usr/local/share/applications/
+##xdg-mime default nemo.desktop inode/directory
+##xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
+##xdg-mime default nemo.desktop x-directory/normal
+##xdg-mime default nemo-autorun-software.desktop x-content/unix-software
+##sudo update-desktop-database /usr/local/share/applications/
 
 # Set Nemo bookmarks, reflecting folder that will be renamed later (Videos>Media)
-truncate -s 0 $HOME/.config/gtk-3.0/bookmarks
-tee -a $HOME/.config/gtk-3.0/bookmarks &>/dev/null << EOF
-file:///home/${USER}/Downloads Downloads
-file:///home/${USER}/Documents Documents
-file:///home/${USER}/Music Music
-file:///home/${USER}/Pictures Pictures
-file:///home/${USER}/Media Media
-EOF
+##truncate -s 0 $HOME/.config/gtk-3.0/bookmarks
+##tee -a $HOME/.config/gtk-3.0/bookmarks &>/dev/null << EOF
+##file:///home/${USER}/Downloads Downloads
+##file:///home/${USER}/Documents Documents
+##file:///home/${USER}/Music Music
+##file:///home/${USER}/Pictures Pictures
+##file:///home/${USER}/Media Media
+##EOF
 
 
 echo "Configure ONLYOFFICE DESKTOPEDITORS" 
