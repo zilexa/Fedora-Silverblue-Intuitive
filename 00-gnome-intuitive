@@ -1,13 +1,8 @@
 [org/gnome/shell]
 # Extensions
-enabled-extensions=['gnome-ui-tune@itstime.tech', 'appindicatorsupport@rgcjonas.gmail.com', 'dash-to-panel@jderose9.github.com', 'arcmenu@arcmenu.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com', 'custom-hot-corners-extended@G-dH.github.com', 'BingWallpaper@ineffable-gmail.com', 'allowlockedremotedesktop@kamens.us', 'blur-my-shell@aunetx', 'gtk4-ding@smedius.gitlab.com']
+['appindicatorsupport@rgcjonas.gmail.com', 'blur-my-shell@aunetx', 'gsconnect@andyholmes.github.io', 'tailscale@joaophi.github.com', 'search-light@icedman.github.com', 'allowlockedremotedesktop@kamens.us', 'arcmenu@arcmenu.com', 'BingWallpaper@ineffable-gmail.com', 'custom-hot-corners-extended@G-dH.github.com', 'dash-to-panel@jderose9.github.com', 'gtk4-ding@smedius.gitlab.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com']
 # Dash (Dash-to-Panel) pinned apps
-favorite-apps=['nemo.desktop', 'firefox.desktop', 'org.onlyoffice.desktopeditors.desktop', 'xed.desktop', 'org.gnome.Calculator.desktop']
-# Use power-saver (quiet & cool laptop/pc)
-last-selected-power-profile='power-saver'
-
-[org/gnome/mutter]
-experimental-features=['scale-monitor-framebuffer']
+favorite-apps=['org.gnome.Nautilus.desktop', 'org.mozilla.firefox.desktop', 'org.libreoffice.LibreOffice.writer.desktop', 'org.gnome.Calculator.desktop', 'org.xfce.mousepad.desktop']
 
 [org/gnome/settings-daemon/plugins/power]
 ambient-enabled=true
@@ -15,10 +10,10 @@ idle-dim=true
 power-button-action='hibernate'
 power-saver-profile-on-low-battery=true
 sleep-inactive-ac-timeout=3600
-sleep-inactive-battery-timeout=1200
+sleep-inactive-battery-timeout=1800
 
-[org/gnome/session]
-idle-delay=uint32 600
+[org/gnome/desktop/session]
+idle-delay=uint32 900
 
 [org/gnome/desktop/interface]
 color-scheme='prefer-dark'
@@ -31,15 +26,11 @@ text-scaling-factor=1.0
 font-hinting='slight'
 font-antialiasing='rgba'
 
-[org/gnome/desktop/wm/preferences]
-# Add minimise and maximise to app windows
-button-layout='appmenu:minimize,maximize,close'
-
-# Let Nemo instead of Nautilus handle desktop icons
+# Enable desktop icons
 [org.gnome.desktop.background]
-show-desktop-icons=false
-[org.nemo.desktop] 
 show-desktop-icons=true
+#[org.nemo.desktop] 
+#show-desktop-icons=true
 
 [org/gnome/desktop/calendar]
 show-weekdate=true
@@ -54,10 +45,6 @@ natural-scroll=false
 # Gnome Settings
 [org/gnome/desktop/privacy]
 remove-old-temp-files=true
-remove-old-trash-files=true
-
-[org/gnome/system/location]
-enabled=true
 
 [org/gnome/settings-daemon/plugins/color]
 night-light-enabled=true
@@ -67,24 +54,16 @@ night-light-schedule-to=8.75
 
 
 # Nemo file manager preferences
-[org/nemo/preferences]
-date-format='iso'
-default-folder-viewer='list-view'
-inherit-folder-viewer=true
-quick-renames-with-pause-in-between=true
-show-hidden-files=true
-show-reload-icon-toolbar=true
-
-# Xed text editor preferences
-[org/x/editor/preferences/editor]
-scheme='cobalt'
-display-line-numbers=true
-highlight-current-line=true
-bracket-matching=true
-auto-indent=true
+#[org/nemo/preferences]
+#date-format='iso'
+#default-folder-viewer='list-view'
+#inherit-folder-viewer=true
+#quick-renames-with-pause-in-between=true
+#show-hidden-files=true
+#show-reload-icon-toolbar=true
 
 # Extension: Desktop Icons
-#[org/gnome/shell/extensions/gtk4-ding]
+[org/gnome/shell/extensions/gtk4-ding]
 show-home=false
 start-corner='bottom-left'
 
@@ -152,7 +131,7 @@ override-lockscreen-blur=true
 
 # Screenshots: save to subfolder of Pictures
 [org/gnome/gnome-screenshot]
-auto-save-directory='file:///home/asterix/Pictures/Screenshots/'
+auto-save-directory='~/Pictures/Screenshots/'
 
 # Screenshots: allow instant screenshots instead of being forced to use the UI popup
 [org/gnome/settings-daemon/plugins/media-keys]
