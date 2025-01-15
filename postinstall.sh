@@ -120,8 +120,8 @@ echo "__________________________________"
 echo "Configure ONLYOFFICE DESKTOPEDITORS" 
 echo "____________________"
 # Enable dark mode, use separate windows instead of tabs
-mkdir -p $HOME/.config/onlyoffice
-tee -a $HOME/.config/onlyoffice/DesktopEditors.conf &>/dev/null << EOF
+mkdir -p $HOME/.var/app/onlyoffice
+tee -a $HOME/.var/app/onlyoffice/DesktopEditors.conf &>/dev/null << EOF
 UITheme=theme-dark
 editorWindowMode=true
 EOF
