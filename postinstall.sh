@@ -154,48 +154,21 @@ sudo tee -a /etc/firefox/policies/policies.json &>/dev/null << EOF
   "policies": {
     "DisableProfileImport": true,
     "NoDefaultBookmarks": true,
+    "DisplayBookmarksToolbar": "always",
     "Extensions": {
       "Install": ["https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi", "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-3.7.1.0.xpi", "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/facebook-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/google-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/nord-polar-night-theme/latest.xpi"]
-    }
-  }
+      }
+    "browser.uiCustomization.state": {
+      "Value": 
+      "Status": "default"
+      }
+  }    
 }
-EOF
 
-#  !!! BELOW DOES NOT WORK UNTIL MOZILLA SUPPORTS TO HAVE THESE FILES IN /ETC INSTEAD OF /USR/LIB64/ !!!
+EOF
+#"{\"placements\":{\"widget-overflow-fixed-list\":[\"screenshot-button\",\"print-button\",\"save-to-pocket-button\",\"bookmarks-menu-button\",\"library-button\",\"preferences-button\",\"panic-button\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"urlbar-container\",\"customizableui-special-spring2\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"fxa-toolbar-menu-button\",\"history-panelmenu\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"_d133e097-46d9-4ecc-9903-fa6a722a6e0e_-browser-action\",\"_contain-facebook-browser-action\",\"sponsorblocker_ajay_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"developer-button\"],\"dirtyAreaCache\":[\"nav-bar\",\"widget-overflow-fixed-list\",\"PersonalToolbar\"],\"currentVersion\":17,\"newElementCount\":3}");
 
-# Enable default Firefox config file
-sudo tee -a /etc/firefox/pref/autoconfig.js &>/dev/null << EOF
-pref("general.config.filename", "firefox.cfg");
-pref("general.config.obscure_value", 0);
-EOF
-sudo mkdir -p /etc/firefox/defaults/pref
-sudo cp /etc/firefox/pref/autoconfig.js /etc/firefox/defaults/pref/
-# Create default Firefox config file
-# -Use system default file manager - include toolbar layout in Sync - Enable bookmarks bar - set toolbar layout
-sudo tee -a /etc/firefox/firefox.cfg &>/dev/null << EOF
-// IMPORTANT: Start your code on the 2nd line
-defaultPref("media.ffmpeg.vaapi.enabled",true);
-defaultPref("media.navigator.mediadatadecoder_vpx_enabled",true);
-defaultPref("services.sync.prefs.sync.browser.uiCustomization.state",true);
-defaultPref("browser.toolbars.bookmarks.visibility", "always");
-defaultPref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[\"screenshot-button\",\"print-button\",\"save-to-pocket-button\",\"bookmarks-menu-button\",\"library-button\",\"preferences-button\",\"panic-button\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"urlbar-container\",\"customizableui-special-spring2\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"fxa-toolbar-menu-button\",\"history-panelmenu\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"_d133e097-46d9-4ecc-9903-fa6a722a6e0e_-browser-action\",\"_contain-facebook-browser-action\",\"sponsorblocker_ajay_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"developer-button\"],\"dirtyAreaCache\":[\"nav-bar\",\"widget-overflow-fixed-list\",\"PersonalToolbar\"],\"currentVersion\":17,\"newElementCount\":3}");
-EOF
-# Use your custom Firefox Sync Server by default
-echo "---------------------------------------"
-read -p "Would you like to use your own Firefox Sync Server? (y/n)" answer
-case ${answer:0:1} in
-    y|Y )
-    echo "Please type your Firefox Sync domain address, for example: firefox.mydomain.com"
-    read -p 'Firefox Sync domain address: ' ffsyncdomain
-    sudo tee -a /usr/lib/firefox/firefox.cfg &>/dev/null << EOF
-defaultPref("identity.sync.tokenserver.uri","https://$ffsyncdomain/token/1.0/sync/1.5");
-EOF
-    echo "Done. New firefox profile will use your Firefox sync server by default."
-    ;;
-    * )
-        echo "default Mozilla public sync server is used."
-    ;;
-esac
+
 
 # Get a Firefox shortcut for 2 profiles
 echo "---------------------------------------"
