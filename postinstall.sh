@@ -147,7 +147,6 @@ rm -r $HOME/.mozilla/firefox/*.default
 rm $HOME/.mozilla/firefox/profiles.ini
 
 # Create default firefox policies
-# -Cleanup bookmarks toolbar by disabling default Mozilla bookmarks - install bare minimum extensions
 sudo mkdir -p /etc/firefox/policies
 sudo tee -a /etc/firefox/policies/policies.json &>/dev/null << EOF
 {
@@ -157,9 +156,9 @@ sudo tee -a /etc/firefox/policies/policies.json &>/dev/null << EOF
     "DisplayBookmarksToolbar": "always",
     "Extensions": {
       "Install": ["https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi", "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-3.7.1.0.xpi", "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/facebook-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/google-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/nord-polar-night-theme/latest.xpi"]
-      }
+      },
     "browser.uiCustomization.state": {
-      "Value": 
+      "Value": "{\"placements\":{\"widget-overflow-fixed-list\":[\"screenshot-button\",\"save-to-pocket-button\",\"logins-button\",\"panic-button\",\"preferences-button\",\"bookmarks-menu-button\"],\"unified-extensions-area\":[\"sponsorblocker_ajay_app-browser-action\",\"_contain-facebook-browser-action\",\"magnolia_12_34-browser-action\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"urlbar-container\",\"customizableui-special-spring2\",\"_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action\",\"unified-extensions-button\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"firefox-view-button\",\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\",\"fullscreen-button\"],\"vertical-tabs\":[],\"PersonalToolbar\":[\"fxa-toolbar-menu-button\",\"history-panelmenu\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"developer-button\",\"sponsorblocker_ajay_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"_contain-facebook-browser-action\",\"magnolia_12_34-browser-action\",\"_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action\"],\"dirtyAreaCache\":[\"nav-bar\",\"unified-extensions-area\",\"toolbar-menubar\",\"TabsToolbar\",\"PersonalToolbar\",\"widget-overflow-fixed-list\",\"vertical-tabs\"],\"currentVersion\":20,\"newElementCount\":8}",
       "Status": "default"
       }
   }    
