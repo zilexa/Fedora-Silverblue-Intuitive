@@ -11,6 +11,7 @@ read -p 'countrycode for example "nl" and hit ENTER: ' LANG
 flatpak config --system --set languages "en;$LANG"
 flatpak update -y
 
+
 echo "___________________________________________________________________________________"
 echo "                                                                                   "
 echo "               APPLICATIONS - Install required and recommended apps                "
@@ -128,6 +129,7 @@ sudo tee -a /etc/firefox/policies/policies.json &>/dev/null << EOF
 }
 
 EOF
+
 
 echo "___________________________________________________________________________________"
 echo "                                                                                   "
