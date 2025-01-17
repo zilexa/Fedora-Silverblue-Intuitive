@@ -15,9 +15,6 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "               APPLICATIONS - Install required and recommended apps                "
 echo "___________________________________________________________________________________"
-# Install applications/tools not available via Flatpak - currently this is only Nemo Filemanager. Let's give the built-in Gnome filemanager another shot. 
-##rpm-ostree install --apply-live --assumeyes nemo nemo-extensions nemo-compare nemo-emblems nemo-fileroller nemo-image-converter nemo-search-helpers
-
 # Install applications/tools via the proper method (Flatpak)
 # Remove Gnome Text Editor, install a less 'naked' simple texteditor instead
 flatpak uninstall -y org.gnome.TextEditor
@@ -85,38 +82,6 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "                             APPLICATIONS - configure apps                         "
 echo "___________________________________________________________________________________"
-echo "Configure NEMO file manager"
-echo "__________________________________"
-# Create the folder for user-space application shortcuts
-##sudo mkdir -p /usr/local/share/applications/
-# Disable Gnome Nautilus Filemanager
-##sudo cp /usr/share/applications/org.gnome.Nautilus.desktop /usr/local/share/applications/
-##sudo sed -i "2a\\NotShowIn=GNOME;KDE" /usr/local/share/applications/org.gnome.Nautilus.desktop
-# Fix Nemo shortcut from not showing up in Gnome
-##sudo cp /usr/share/applications/nemo.desktop /usr/local/share/applications/
-##sudo sed -i -e 's@OnlyShowIn=X-Cinnamon;Budgie;@#OnlyShowIn=X-Cinnamon;Budgie;@g' /usr/local/share/applications/nemo.desktop
-# Update shortcuts database
-##sudo update-desktop-database /usr/local/share/applications/
-
-# Associate Nemo as the default filemanager
-# For current user
-##xdg-mime default nemo.desktop inode/directory
-##xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
-##xdg-mime default nemo.desktop x-directory/normal
-##xdg-mime default nemo-autorun-software.desktop x-content/unix-software
-##sudo update-desktop-database /usr/local/share/applications/
-
-# Set Nemo bookmarks, reflecting folder that will be renamed later (Videos>Media)
-##truncate -s 0 $HOME/.config/gtk-3.0/bookmarks
-##tee -a $HOME/.config/gtk-3.0/bookmarks &>/dev/null << EOF
-##file:///home/${USER}/Downloads Downloads
-##file:///home/${USER}/Documents Documents
-##file:///home/${USER}/Music Music
-##file:///home/${USER}/Pictures Pictures
-##file:///home/${USER}/Media Media
-##EOF
-
-
 echo "Configure ONLYOFFICE DESKTOPEDITORS" 
 echo "____________________"
 # Enable dark mode, use separate windows instead of tabs
