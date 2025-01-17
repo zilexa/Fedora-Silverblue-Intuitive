@@ -56,7 +56,6 @@ bash install-gnome-extensions.sh --enable 4167
 # Bing Wallpaper (BingWallpaper@ineffable-gmail.com)
 mkdir $HOME/Pictures/Wallpapers
 bash install-gnome-extensions.sh --enable 1262
-
 #remove the script used to install extensions. 
 rm install-gnome-extensions.sh 
 
@@ -91,7 +90,6 @@ UITheme=theme-dark
 editorWindowMode=true
 EOF
 
-
 echo "Configure LIBREOFFICE"
 echo "_____________________"
 # Adjust the LibreOffice settings to make it look like MS Office: icons: Colibre, ribbon view. Also enable LanguageTools modern spell and grammar checker, save every 5min etc. 
@@ -100,7 +98,6 @@ wget -O $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz "htt
 mkdir -p $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
 tar -xvf $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz -C $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
 rm $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz
-
 
 echo "Configure FIREFOX"
 echo "_____________________"
@@ -119,21 +116,23 @@ sudo tee -a /etc/firefox/policies/policies.json &>/dev/null << EOF
     "DisableProfileImport": true,
     "NoDefaultBookmarks": true,
     "DisplayBookmarksToolbar": "always",
-    "Extensions": { 
-      "Install": ["https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi", "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-3.7.1.0.xpi", "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/facebook-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/google-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/nord-polar-night-theme/latest.xpi"]},
-    "browser.uiCustomization.state": {
-      "Value": "{\"placements\":{\"widget-overflow-fixed-list\":[\"screenshot-button\",\"save-to-pocket-button\",\"logins-button\",\"panic-button\",\"preferences-button\",\"bookmarks-menu-button\"],\"unified-extensions-area\":[\"sponsorblocker_ajay_app-browser-action\",\"_contain-facebook-browser-action\",\"magnolia_12_34-browser-action\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"urlbar-container\",\"customizableui-special-spring2\",\"_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action\",\"unified-extensions-button\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"firefox-view-button\",\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\",\"fullscreen-button\"],\"vertical-tabs\":[],\"PersonalToolbar\":[\"fxa-toolbar-menu-button\",\"history-panelmenu\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"developer-button\",\"sponsorblocker_ajay_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"_contain-facebook-browser-action\",\"magnolia_12_34-browser-action\",\"_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action\"],\"dirtyAreaCache\":[\"nav-bar\",\"unified-extensions-area\",\"toolbar-menubar\",\"TabsToolbar\",\"PersonalToolbar\",\"widget-overflow-fixed-list\",\"vertical-tabs\"],\"currentVersion\":20,\"newElementCount\":8}",
-      "Status": "default"
+    "Preferences": {
+      "browser.uiCustomization.state": {
+        "Value": "{\"placements\":{\"widget-overflow-fixed-list\":[\"screenshot-button\",\"save-to-pocket-button\",\"logins-button\",\"panic-button\",\"preferences-button\",\"bookmarks-menu-button\"],\"unified-extensions-area\":[\"sponsorblocker_ajay_app-browser-action\",\"_contain-facebook-browser-action\",\"magnolia_12_34-browser-action\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"urlbar-container\",\"customizableui-special-spring2\",\"_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action\",\"unified-extensions-button\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"firefox-view-button\",\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\",\"fullscreen-button\"],\"vertical-tabs\":[],\"PersonalToolbar\":[\"fxa-toolbar-menu-button\",\"history-panelmenu\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"developer-button\",\"sponsorblocker_ajay_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"_contain-facebook-browser-action\",\"magnolia_12_34-browser-action\",\"_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action\"],\"dirtyAreaCache\":[\"nav-bar\",\"unified-extensions-area\",\"toolbar-menubar\",\"TabsToolbar\",\"PersonalToolbar\",\"widget-overflow-fixed-list\",\"vertical-tabs\"],\"currentVersion\":20,\"newElementCount\":8}",
+        "Status": "default"
       }
+    },
+    "Extensions": { 
+      "Install": ["https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi", "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-3.7.1.0.xpi", "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/facebook-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/google-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/nord-polar-night-theme/latest.xpi"]}
   }    
 }
 
 EOF
-#https://www.reddit.com/r/firefox/comments/18z7jp5/issues_with_policiesjson/
-#"{\"placements\":{\"widget-overflow-fixed-list\":[\"screenshot-button\",\"print-button\",\"save-to-pocket-button\",\"bookmarks-menu-button\",\"library-button\",\"preferences-button\",\"panic-button\"],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"downloads-button\",\"ublock0_raymondhill_net-browser-action\",\"urlbar-container\",\"customizableui-special-spring2\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"fxa-toolbar-menu-button\",\"history-panelmenu\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"_d133e097-46d9-4ecc-9903-fa6a722a6e0e_-browser-action\",\"_contain-facebook-browser-action\",\"sponsorblocker_ajay_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"developer-button\"],\"dirtyAreaCache\":[\"nav-bar\",\"widget-overflow-fixed-list\",\"PersonalToolbar\"],\"currentVersion\":17,\"newElementCount\":3}");
 
-
-
+echo "___________________________________________________________________________________"
+echo "                                                                                   "
+echo "                             OPTIONAL SETTINGS - choose y/n                        "
+echo "___________________________________________________________________________________"
 # Get a Firefox shortcut for 2 profiles
 echo "---------------------------------------"
 echo "Firefox: would you like to be able to launch different profiles (2), by simply right-clicking the Firefox shortcut?"
