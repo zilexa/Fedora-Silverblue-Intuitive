@@ -46,7 +46,7 @@ echo "                                                                          
 echo "           GNOME EXTENSIONS - Required for usable and intuitive system             "
 echo "___________________________________________________________________________________"
 #Install extensions that cannot be installed+autoupdated system-wide on Fedora SilverBlue  
-wget -O $HOME/Downloads/install-gnome-extensions.sh https://raw.githubusercontent.com/ToasterUwU/install-gnome-extensions/master/install-gnome-extensions.sh
+wget -P $HOME/Downloads/ https://raw.githubusercontent.com/ToasterUwU/install-gnome-extensions/master/install-gnome-extensions.sh
 # Dash-to-Panel (dash-to-panel@jderose9.github.com)
 bash install-gnome-extensions.sh --enable 1160
 # Removable Drive menu (drive-menu@gnome-shell-extensions.gcampax.github.com)
@@ -60,7 +60,7 @@ bash install-gnome-extensions.sh --enable 4338
 # Custom Hot Corners (custom-hot-corners-extended@G-dH.github.com)
 bash install-gnome-extensions.sh --enable 4167
 # Bing Wallpaper (BingWallpaper@ineffable-gmail.com)
-mkdir $HOME/Pictures/Wallpapers
+mkdir -p $HOME/Pictures/Wallpapers
 bash install-gnome-extensions.sh --enable 1262
 #remove the script used to install extensions. 
 rm install-gnome-extensions.sh 
@@ -131,7 +131,7 @@ echo "       Configure LIBREOFFICE       "
 echo "___________________________________"
 # Adjust the LibreOffice settings to make it look like MS Office: icons: Colibre, ribbon view. Also enable LanguageTools modern spell and grammar checker, save every 5min etc. 
 cd $HOME/Downloads
-wget -O $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz "https://github.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/raw/main/libreoffice-configure-to-look-like-Office365.tar.xz"
+wget -P $HOME/Downloads/ "https://github.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/raw/main/libreoffice-configure-to-look-like-Office365.tar.xz"
 mkdir -p $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
 tar -xvf $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz -C $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
 rm $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz
@@ -146,7 +146,7 @@ source $HOME/Downloads/megadown 'https://mega.nz/#!u4p02JCC!HnJOVyK8TYDqEyVXLkwg
 # remove the helper script
 rm $HOME/Downloads/megadown
 # Extract to systems font folder
-mkdir -P $HOME/.local/share/fonts
+mkdir -p $HOME/.local/share/fonts
 tar -xvf $HOME/Downloads/fonts-office365.tar.xz -C $HOME/.local/share/fonts
 # Refresh the font cache (= register the fonts)
 fc-cache -f -v
@@ -164,14 +164,14 @@ echo "Firefox: would you like to be able to launch different profiles (2), by si
 read -p "Only useful if multiple users use this machine and each user has its own Firefox profile. (y/n)?" answer
 case ${answer:0:1} in
     y|Y )
-    mkdir -P $HOME/.local/share/flatpak/exports/share/applications
+    mkdir -p $HOME/.local/share/flatpak/exports/share/applications
     cp /var/lib/flatpak/exports/share/applications/org.mozilla.firefox.desktop $HOME/.local/share/flatpak/exports/share/applications/
     echo "Please enter the first Firefox profile (user) name:"
     read -p 'firefox profile 1 name (e.g. Lisa): ' PROFILE1
     echo "Please enter the second Firefox profile (user) name:"
     read -p 'firefox profile 2 name (e.g. John): ' PROFILE2
     echo adding profiles to right-click of Firefox shortcut... 
-    sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$PROFILE1;$PROFILE2;@g' $HOME/.local/share/flatpak/exports/share/applications/org.mozilla.firefox.desktop
+    sed -i -e 's@Actions=new-window;new-private-window;open-profile-manager;@Actions=new-window;$PROFILE1;$PROFILE2;@g' $HOME/.local/share/flatpak/exports/share/applications/org.mozilla.firefox.desktop
     tee -a $HOME/.local/share/flatpak/exports/share/applications/ &>/dev/null << EOF 
 [Desktop Action $PROFILE1]
 Name=start $profile1's Firefox
