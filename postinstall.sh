@@ -139,9 +139,22 @@ rm $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz
 
 echo "Get & install all MS Office365 fonts"
 echo "___________________________________"
+# Get a script that uses MEGA api to donwload a file
 wget -P $HOME/Downloads/ https://raw.githubusercontent.com/tonikelope/megadown/refs/heads/master/megadown
+# Get the fonts via MEGA
 source $HOME/Downloads/megadown 'https://mega.nz/#!u4p02JCC!HnJOVyK8TYDqEyVXLkwghDLKlKfIq0kOlX6SPxH53u0'
+# remove the helper script
 rm $HOME/Downloads/megadown
+# Extract to systems font folder
+mkdir -P $HOME/.local/share/fonts
+sudo tar -xvf $HOME/Downloads/fonts-office365.tar.xz -C $HOME/.local/share/fonts
+# Set permissions to allow non-root to use the fonts
+sudo chown -R root:root /usr/share/fonts/office365
+sudo chmod -R 755 /usr/share/fonts/office365
+# Refresh the font cache (= register the fonts)
+sudo fc-cache -f -v
+# Remove the downloaded font file
+rm $HOME/Downloads/fonts-office365.tar.xz
 
 
 echo "___________________________________________________________________________________"
