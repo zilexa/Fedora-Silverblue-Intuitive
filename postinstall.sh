@@ -92,9 +92,9 @@ echo "___________________________________"
 # For current and future system users and profiles
 # Create default policies (install minimal set of extensions and theme, enable syncing of your toolbar layout, disable default Mozilla bookmarks)
 # first delete existing profiles
-rm -r $HOME/.mozilla/firefox/*.default-release
-rm -r $HOME/.mozilla/firefox/*.default
-rm $HOME/.mozilla/firefox/profiles.ini
+rm -r $HOME/.mozilla/firefox/*.default-release WRONG FOLDER
+rm -r $HOME/.mozilla/firefox/*.default WRONG FOLDER
+rm $HOME/.mozilla/firefox/profiles.ini WRONG FOLDER
 
 # Create default firefox policies
 sudo mkdir -p /etc/firefox/policies
