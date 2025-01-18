@@ -171,8 +171,8 @@ case ${answer:0:1} in
     echo "Please enter the second Firefox profile (user) name:"
     read -p 'firefox profile 2 name (e.g. John): ' PROFILE2
     echo adding profiles to right-click of Firefox shortcut... 
-    sudo sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$PROFILE1;$PROFILE2;@g' $HOME/.local/share/flatpak/exports/share/applications/org.mozilla.firefox.desktop
-    sudo tee -a $HOME/.local/share/flatpak/exports/share/applications/ &>/dev/null << EOF 
+    sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$PROFILE1;$PROFILE2;@g' $HOME/.local/share/flatpak/exports/share/applications/org.mozilla.firefox.desktop
+    tee -a $HOME/.local/share/flatpak/exports/share/applications/ &>/dev/null << EOF 
 [Desktop Action $PROFILE1]
 Name=start $profile1's Firefox
 Exec=firefox -P $PROFILE1 -no-remote
