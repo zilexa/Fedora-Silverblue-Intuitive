@@ -1,6 +1,6 @@
 [org/gnome/shell]
 # Extensions
-['appindicatorsupport@rgcjonas.gmail.com', 'blur-my-shell@aunetx', 'gsconnect@andyholmes.github.io', 'tailscale@joaophi.github.com', 'search-light@icedman.github.com', 'allowlockedremotedesktop@kamens.us', 'arcmenu@arcmenu.com', 'BingWallpaper@ineffable-gmail.com', 'custom-hot-corners-extended@G-dH.github.com', 'dash-to-panel@jderose9.github.com', 'gtk4-ding@smedius.gitlab.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com']
+enabled-extensions=['appindicatorsupport@rgcjonas.gmail.com', 'blur-my-shell@aunetx', 'gsconnect@andyholmes.github.io', 'tailscale@joaophi.github.com', 'search-light@icedman.github.com', 'allowlockedremotedesktop@kamens.us', 'arcmenu@arcmenu.com', 'BingWallpaper@ineffable-gmail.com', 'custom-hot-corners-extended@G-dH.github.com', 'dash-to-panel@jderose9.github.com', 'gtk4-ding@smedius.gitlab.com', 'drive-menu@gnome-shell-extensions.gcampax.github.com']
 # Dash (Dash-to-Panel) pinned apps
 favorite-apps=['org.gnome.Nautilus.desktop', 'org.mozilla.firefox.desktop', 'org.libreoffice.LibreOffice.writer.desktop', 'org.gnome.Calculator.desktop', 'org.xfce.mousepad.desktop']
 
