@@ -3,13 +3,18 @@ echo "                                                                          
 echo "                           GET LANGUAGE INFO FROM USER                             "
 echo "___________________________________________________________________________________"
 # Get language & region info
-echo "---------------------------------------"
-echo "Besides English, what other language would you like to spellcheck?" answer
-echo "Please type the 2-letter countrycode for the language you would like to install, for example "de" for German language (no caps):"
-read -p 'countrycode for example "nl" and hit ENTER: ' LANG
-
-flatpak config --system --set languages "en;$LANG"
-flatpak update -y
+echo "___________________________________________________________________"
+read -p "Besides English, would you like spellchecker support for another language? (y/n)" answer
+case ${answer:0:1} in
+    y|Y )
+    echo "Please type the 2-letter countrycode for the language, for example "de" for German language (no caps):"
+    echo "___________________________________________________________________"
+    read -p 'countrycode for example "de" and hit ENTER: ' LANG
+    flatpak config --system --set languages "en;$LANG"
+    flatpak update -y ;;
+    n|N ) ;;
+    * ) ;;
+esac
 
 
 echo "___________________________________________________________________________________"
@@ -82,26 +87,8 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "                             APPLICATIONS - configure apps                         "
 echo "___________________________________________________________________________________"
-echo "Configure ONLYOFFICE DESKTOPEDITORS" 
-echo "____________________"
-# Enable dark mode, use separate windows instead of tabs
-mkdir -p $HOME/.var/app/onlyoffice
-tee -a $HOME/.var/app/onlyoffice/DesktopEditors.conf &>/dev/null << EOF
-UITheme=theme-dark
-editorWindowMode=true
-EOF
-
-echo "Configure LIBREOFFICE"
-echo "_____________________"
-# Adjust the LibreOffice settings to make it look like MS Office: icons: Colibre, ribbon view. Also enable LanguageTools modern spell and grammar checker, save every 5min etc. 
-cd $HOME/Downloads
-wget -O $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz "https://github.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/raw/main/libreoffice-configure-to-look-like-Office365.tar.xz"
-mkdir -p $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
-tar -xvf $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz -C $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
-rm $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz
-
 echo "Configure FIREFOX"
-echo "_____________________"
+echo "___________________________________"
 # For current and future system users and profiles
 # Create default policies (install minimal set of extensions and theme, enable syncing of your toolbar layout, disable default Mozilla bookmarks)
 # first delete existing profiles
@@ -127,8 +114,34 @@ sudo tee -a /etc/firefox/policies/policies.json &>/dev/null << EOF
       "Install": ["https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi", "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-3.7.1.0.xpi", "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/facebook-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/google-container/latest.xpi", "https://addons.mozilla.org/firefox/downloads/latest/nord-polar-night-theme/latest.xpi"]}
   }    
 }
-
 EOF
+
+
+echo "Configure ONLYOFFICE DESKTOPEDITORS" 
+echo "___________________________________"
+# Enable dark mode, use separate windows instead of tabs
+mkdir -p $HOME/.var/app/onlyoffice
+tee -a $HOME/.var/app/onlyoffice/DesktopEditors.conf &>/dev/null << EOF
+UITheme=theme-dark
+editorWindowMode=true
+EOF
+
+
+echo "       Configure LIBREOFFICE       "
+echo "___________________________________"
+# Adjust the LibreOffice settings to make it look like MS Office: icons: Colibre, ribbon view. Also enable LanguageTools modern spell and grammar checker, save every 5min etc. 
+cd $HOME/Downloads
+wget -O $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz "https://github.com/zilexa/Fedora-Silverblue-Intuitive-Postinstall/raw/main/libreoffice-configure-to-look-like-Office365.tar.xz"
+mkdir -p $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
+tar -xvf $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz -C $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
+rm $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz
+
+
+echo "Get & install all MS Office365 fonts"
+echo "___________________________________"
+wget -P $HOME/Downloads/ https://raw.githubusercontent.com/tonikelope/megadown/refs/heads/master/megadown
+source $HOME/Downloads/megadown 'https://mega.nz/#!u4p02JCC!HnJOVyK8TYDqEyVXLkwghDLKlKfIq0kOlX6SPxH53u0'
+rm $HOME/Downloads/megadown
 
 
 echo "___________________________________________________________________________________"
