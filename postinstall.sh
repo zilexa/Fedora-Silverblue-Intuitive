@@ -147,12 +147,9 @@ source $HOME/Downloads/megadown 'https://mega.nz/#!u4p02JCC!HnJOVyK8TYDqEyVXLkwg
 rm $HOME/Downloads/megadown
 # Extract to systems font folder
 mkdir -P $HOME/.local/share/fonts
-sudo tar -xvf $HOME/Downloads/fonts-office365.tar.xz -C $HOME/.local/share/fonts
-# Set permissions to allow non-root to use the fonts
-sudo chown -R root:root /usr/share/fonts/office365
-sudo chmod -R 755 /usr/share/fonts/office365
+tar -xvf $HOME/Downloads/fonts-office365.tar.xz -C $HOME/.local/share/fonts
 # Refresh the font cache (= register the fonts)
-sudo fc-cache -f -v
+fc-cache -f -v
 # Remove the downloaded font file
 rm $HOME/Downloads/fonts-office365.tar.xz
 
@@ -167,14 +164,15 @@ echo "Firefox: would you like to be able to launch different profiles (2), by si
 read -p "Only useful if multiple users use this machine and each user has its own Firefox profile. (y/n)?" answer
 case ${answer:0:1} in
     y|Y )
-    sudo cp /usr/share/applications/org.mozilla.firefox.desktop /usr/local/share/applications/
+    mkdir -P $HOME/.local/share/flatpak/exports/share/applications
+    cp /var/lib/flatpak/exports/share/applications/org.mozilla.firefox.desktop $HOME/.local/share/flatpak/exports/share/applications/
     echo "Please enter the first Firefox profile (user) name:"
     read -p 'firefox profile 1 name (e.g. Lisa): ' PROFILE1
     echo "Please enter the second Firefox profile (user) name:"
     read -p 'firefox profile 2 name (e.g. John): ' PROFILE2
     echo adding profiles to right-click of Firefox shortcut... 
-    sudo sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$PROFILE1;$PROFILE2;@g' /usr/local/share/applications/org.mozilla.firefox.desktop
-    sudo tee -a /usr/local/share/applications/org.mozilla.firefox.desktop &>/dev/null << EOF 
+    sudo sed -i -e 's@Actions=new-window;new-private-window;profile-manager-window;@Actions=new-window;$PROFILE1;$PROFILE2;@g' $HOME/.local/share/flatpak/exports/share/applications/org.mozilla.firefox.desktop
+    sudo tee -a $HOME/.local/share/flatpak/exports/share/applications/ &>/dev/null << EOF 
 [Desktop Action $PROFILE1]
 Name=start $profile1's Firefox
 Exec=firefox -P $PROFILE1 -no-remote
