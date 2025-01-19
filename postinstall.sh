@@ -93,7 +93,7 @@ echo "___________________________________"
 # For current and future system users and profiles
 # Create default policies (install minimal set of extensions and theme, enable syncing of your toolbar layout, disable default Mozilla bookmarks)
 # first delete existing profiles
-/var/home/shanti/.var/app/org.mozilla.firefox/cache/mozilla/firefox/*.default*
+rm -r /var/home/shanti/.var/app/org.mozilla.firefox/cache/mozilla/firefox/*.default*
 rm -r $HOME/.mozilla/firefox/*.default*
 rm $HOME/.mozilla/firefox/profiles.ini
 
