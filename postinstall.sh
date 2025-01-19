@@ -88,7 +88,23 @@ echo "__________________________________________________________________________
 echo "                                                                                   "
 echo "                             APPLICATIONS - configure apps                         "
 echo "___________________________________________________________________________________"
-echo "Configure FIREFOX"
+echo     "Configure Mousepad TextEditor"
+echo "___________________________________"
+mkdir -p /var/home/shanti/.var/app/org.xfce.mousepad/config/glib-2.0/settings
+tee -a /var/home/shanti/.var/app/org.xfce.mousepad/config/glib-2.0/settings/keyfile &>/dev/null << EOF
+[org/xfce/mousepad/preferences/window]
+toolbar-visible=true
+statusbar-visible=true
+remember-position=true
+
+[org/xfce/mousepad/preferences/view]
+show-line-numbers=true
+highlight-current-line=true
+match-braces=true
+color-scheme='cobalt'
+EOF
+
+echo        "Configure FIREFOX"
 echo "___________________________________"
 # For current and future system users and profiles
 # Create default policies (install minimal set of extensions and theme, enable syncing of your toolbar layout, disable default Mozilla bookmarks)
@@ -117,7 +133,6 @@ sudo tee -a /var/lib/flatpak/extension/org.mozilla.firefox.systemconfig/x86_64/s
 }
 EOF
 
-
 echo "Configure ONLYOFFICE DESKTOPEDITORS" 
 echo "___________________________________"
 # Enable dark mode, use separate windows instead of tabs
@@ -126,7 +141,6 @@ tee -a $HOME/.var/app/onlyoffice/DesktopEditors.conf &>/dev/null << EOF
 UITheme=theme-dark
 editorWindowMode=true
 EOF
-
 
 echo "       Configure LIBREOFFICE       "
 echo "___________________________________"
@@ -137,7 +151,6 @@ mkdir -p $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
 tar -xvf $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz -C $HOME/.var/app/org.libreoffice.LibreOffice/config/libreoffice/4/user
 rm $HOME/Downloads/libreoffice-configure-to-look-like-Office365.tar.xz
 
-
 echo "Get & install all MS Office365 fonts"
 echo "___________________________________"
 # Get a script that uses MEGA api to donwload a file
@@ -146,6 +159,7 @@ wget -P $HOME/Downloads/ https://raw.githubusercontent.com/tonikelope/megadown/r
 /bin/bash $HOME/Downloads/megadown 'https://mega.nz/#!u4p02JCC!HnJOVyK8TYDqEyVXLkwghDLKlKfIq0kOlX6SPxH53u0'
 # remove the helper script
 rm $HOME/Downloads/megadown
+rm $HOME/Downloads/.megadown
 # Extract to systems font folder
 mkdir -p $HOME/.local/share/fonts
 tar -xvf $HOME/Downloads/fonts-office365.tar.xz -C $HOME/.local/share/fonts
