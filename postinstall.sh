@@ -92,13 +92,13 @@ echo "___________________________________"
 # For current and future system users and profiles
 # Create default policies (install minimal set of extensions and theme, enable syncing of your toolbar layout, disable default Mozilla bookmarks)
 # first delete existing profiles
-rm -r $HOME/.mozilla/firefox/*.default-release WRONG FOLDER
-rm -r $HOME/.mozilla/firefox/*.default WRONG FOLDER
-rm $HOME/.mozilla/firefox/profiles.ini WRONG FOLDER
+/var/home/shanti/.var/app/org.mozilla.firefox/cache/mozilla/firefox/*.default*
+rm -r $HOME/.mozilla/firefox/*.default*
+rm $HOME/.mozilla/firefox/profiles.ini
 
 # Create default firefox policies
-sudo mkdir -p /etc/firefox/policies
-sudo tee -a /etc/firefox/policies/policies.json &>/dev/null << EOF
+sudo mkdir -p /var/lib/flatpak/extension/org.mozilla.firefox.systemconfig/x86_64/stable/policies
+sudo tee -a /var/lib/flatpak/extension/org.mozilla.firefox.systemconfig/x86_64/stable/policies/policies.json &>/dev/null << EOF
 {
   "policies": {
     "DisableProfileImport": true,
