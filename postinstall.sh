@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "___________________________________________________________________________________"
 echo "                                                                                   "
 echo "                           GET LANGUAGE INFO FROM USER                             "
@@ -142,7 +143,7 @@ echo "___________________________________"
 # Get a script that uses MEGA api to donwload a file
 wget -P $HOME/Downloads/ https://raw.githubusercontent.com/tonikelope/megadown/refs/heads/master/megadown
 # Get the fonts via MEGA
-source $HOME/Downloads/megadown 'https://mega.nz/#!u4p02JCC!HnJOVyK8TYDqEyVXLkwghDLKlKfIq0kOlX6SPxH53u0'
+/bin/bash $HOME/Downloads/megadown 'https://mega.nz/#!u4p02JCC!HnJOVyK8TYDqEyVXLkwghDLKlKfIq0kOlX6SPxH53u0'
 # remove the helper script
 rm $HOME/Downloads/megadown
 # Extract to systems font folder
@@ -171,7 +172,7 @@ case ${answer:0:1} in
     echo "Please enter the second Firefox profile (user) name:"
     read -p 'firefox profile 2 name (e.g. John): ' PROFILE2
     echo adding profiles to right-click of Firefox shortcut... 
-    sed -i -e 's@Actions=new-window;new-private-window;open-profile-manager;@Actions=new-window;$PROFILE1;$PROFILE2;@g' $HOME/.local/share/flatpak/exports/share/applications/org.mozilla.firefox.desktop
+    sed -i -e 's@Actions=new-window;new-private-window;open-profile-manager;@Actions=new-window;new-private-window;$PROFILE1;$PROFILE2;@g' $HOME/.local/share/flatpak/exports/share/applications/org.mozilla.firefox.desktop
     tee -a $HOME/.local/share/flatpak/exports/share/applications/ &>/dev/null << EOF 
 [Desktop Action $PROFILE1]
 Name=start $profile1's Firefox
